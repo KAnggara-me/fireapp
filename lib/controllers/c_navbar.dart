@@ -1,10 +1,9 @@
-import 'package:fire_app/views/logs/v_log.dart';
-import 'package:fire_app/views/profile/v_profile.dart';
-
+import '../views/logs/v_log.dart';
 import '../views/board/v_board.dart';
 import '../views/navbar/nav_user.dart';
 import 'package:flutter/material.dart';
 import '../views/navbar/nav_admin.dart';
+import '../views/profile/v_profile.dart';
 
 class AdminScreen extends StatelessWidget {
   static String routeName = '/admin';

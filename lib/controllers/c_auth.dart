@@ -1,14 +1,12 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
-import 'package:fire_app/constant/size.dart';
-import 'package:fire_app/constant/text.dart';
-import 'package:fire_app/constant/url.dart';
-import 'package:fire_app/controllers/c_navbar.dart';
-import 'package:fire_app/views/auth/v_login_form.dart';
-import 'package:fire_app/views/auth/v_login.dart';
+import '../constant/url.dart';
+import '../constant/size.dart';
+import '../constant/text.dart';
+import '../views/auth/v_login.dart';
+import '../controllers/c_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../views/auth/v_login_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -74,9 +72,6 @@ abstract class LoginController extends State<Login> {
       "email": user.text,
       "password": pass.text,
     };
-
-    print(body.toString());
-    print(API.login);
 
     final response = await http.post(
       API.login,
