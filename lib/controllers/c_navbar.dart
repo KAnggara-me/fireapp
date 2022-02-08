@@ -1,6 +1,6 @@
-import '../views/sensor/v_sensor.dart';
 import '../views/logs/v_log.dart';
 import '../views/board/v_board.dart';
+import '../views/sensor/v_sensor.dart';
 import '../views/navbar/nav_user.dart';
 import 'package:flutter/material.dart';
 import '../views/navbar/nav_admin.dart';

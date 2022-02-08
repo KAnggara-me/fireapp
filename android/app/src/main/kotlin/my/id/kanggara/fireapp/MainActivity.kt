@@ -1,4 +1,4 @@
-package com.example.fire_app
+package my.id.kanggara.fireapp
 
 import io.flutter.embedding.android.FlutterActivity
 
