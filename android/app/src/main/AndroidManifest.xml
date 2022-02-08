@@ -21,7 +21,7 @@
     </intent>
   </queries>
   <application
-    android:label="fire_app"
+    android:label="Fire App"
     android:name="${applicationName}"
     android:icon="@mipmap/launcher_icon">
     <activity
