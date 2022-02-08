@@ -1,3 +1,4 @@
+import '../views/sensor/v_sensor.dart';
 import '../views/logs/v_log.dart';
 import '../views/board/v_board.dart';
 import '../views/navbar/nav_user.dart';
@@ -30,29 +31,19 @@ class UserScreen extends StatelessWidget {
 abstract class AdminNavBarController extends State<AdminNavBar> {
   int pageIndex = 0;
 
-  Widget showPage = const BoardPage();
+  final items = <Widget>[
+    const Icon(Icons.home, size: 30),
+    const Icon(Icons.developer_board_outlined, size: 30),
+    const Icon(Icons.history_toggle_off_outlined, size: 30),
+    const Icon(Icons.person, size: 30),
+  ];
 
-  final BoardPage _adminHomeScreen = const BoardPage();
-  final ProfileBody _userProfile = const ProfileBody();
-  final BoardPage _dashboardScreen = const BoardPage();
-  final LogPage _logPage = const LogPage();
-
-  pageChooser(int page) {
-    switch (page) {
-      case 0:
-        return _adminHomeScreen;
-      case 1:
-        return _dashboardScreen;
-      case 2:
-        return _logPage;
-      case 3:
-        return _userProfile;
-      default:
-        return const Center(
-          child: Text("Page Not Availabel yet...!"),
-        );
-    }
-  }
+  final screen = [
+    const BoardPage(),
+    const SensorPage(),
+    const LogPage(),
+    const ProfileBody(),
+  ];
 }
 
 abstract class UserNavController extends State<UserNavBar> {
@@ -60,22 +51,15 @@ abstract class UserNavController extends State<UserNavBar> {
 
   Widget showPage = const BoardPage();
 
-  final BoardPage _sensorIdScreen = const BoardPage();
-  final ProfileBody _userProfile = const ProfileBody();
-  final LogPage _logPage = const LogPage();
+  final screen = [
+    const SensorPage(),
+    const LogPage(),
+    const ProfileBody(),
+  ];
 
-  pageChooser(int page) {
-    switch (page) {
-      case 0:
-        return _sensorIdScreen;
-      case 1:
-        return _logPage;
-      case 2:
-        return _userProfile;
-      default:
-        return const Center(
-          child: Text("Page Not Availabel yet...!"),
-        );
-    }
-  }
+  final items = <Widget>[
+    const Icon(Icons.home, size: 30),
+    const Icon(Icons.history_toggle_off_outlined, size: 30),
+    const Icon(Icons.person, size: 30),
+  ];
 }
