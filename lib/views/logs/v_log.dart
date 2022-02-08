@@ -1,8 +1,7 @@
-import 'package:fire_app/controllers/c_log.dart';
-import 'package:fire_app/widgets/w_board.dart';
-
 import '../../constant/url.dart';
+import '../../widgets/w_board.dart';
 import '../../constant/colors.dart';
+import '../../controllers/c_log.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -26,14 +25,15 @@ class _LogPageState extends LogController {
     print(API.board);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        centerTitle: true,
         title: const Text(
-          'Lokasi Sensor Terpasang',
+          'Riwayat Notifikasi',
           style: TextStyle(
-            color: kBlack,
-            fontWeight: FontWeight.bold,
+            color: kWhite,
+            fontSize: 30,
           ),
         ),
-        centerTitle: true,
       ),
       body: Container(
         child: loading

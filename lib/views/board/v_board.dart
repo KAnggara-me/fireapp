@@ -1,3 +1,4 @@
+import '../../constant/colors.dart';
 import '../../widgets/w_board.dart';
 import '../../controllers/c_board.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,9 @@ class _BoardPageState extends BoardController {
         backgroundColor: Colors.lightBlue,
         centerTitle: true,
         title: const Text(
-          'Lokasi Sensor Terpasang',
+          'Lokasi Device Terpasang',
           style: TextStyle(
-            color: Colors.white,
+            color: kWhite,
             fontSize: 30,
           ),
         ),
