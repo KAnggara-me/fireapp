@@ -57,17 +57,11 @@ class Board extends StatelessWidget {
                     child: FittedBox(
                       child: Text(
                         name,
-                        style: const TextStyle(
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10,
-                              color: kWhite,
-                              offset: Offset(8, 8),
-                            ),
-                          ],
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: kBlack,
+                          color:
+                              (temp >= tempMax! ? Colors.amber : Colors.black),
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -110,12 +104,14 @@ class Board extends StatelessWidget {
                       fit: BoxFit.fitWidth,
                       child: Column(
                         children: <Widget>[
-                          const Text(
+                          Text(
                             'Temperatur',
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 18,
-                              color: kBlack,
+                              color: (temp >= tempMax!
+                                  ? Colors.white
+                                  : Colors.black),
                             ),
                           ),
                           const SizedBox(
@@ -134,12 +130,14 @@ class Board extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 'Sensor Asap :   ',
                                 style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: 12,
-                                  color: kBlack,
+                                  color: (temp >= tempMax!
+                                      ? Colors.white
+                                      : Colors.black),
                                 ),
                               ),
                               Text(
@@ -148,8 +146,8 @@ class Board extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
                                   color: (temp >= tempMax!
-                                      ? Colors.green
-                                      : Colors.red),
+                                      ? Colors.amber
+                                      : Colors.green),
                                 ),
                               ),
                             ],
@@ -162,12 +160,14 @@ class Board extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'Kelembapan',
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
-                            color: kBlack,
+                            color: (temp >= tempMax!
+                                ? Colors.white
+                                : Colors.black),
                           ),
                         ),
                         const SizedBox(
@@ -190,10 +190,12 @@ class Board extends StatelessWidget {
                             locale: 'id',
                             allowFromNow: true,
                           ),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 12,
-                            color: kBlack,
+                            color: (temp >= tempMax!
+                                ? Colors.white
+                                : Colors.black),
                           ),
                         ),
                       ],
