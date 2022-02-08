@@ -22,11 +22,20 @@ class API {
     return http.get(Uri.parse(BaseUrl.board + "/" + $id));
   }
 
+  static Future getSensorById($id) {
+    return http.get(Uri.parse(BaseUrl.sensor + "/" + $id));
+  }
+
+  static Future getAllSensor() {
+    return http.get(Uri.parse(BaseUrl.sensor));
+  }
+
   static Map<String, String>? headers = {
     "Accept": "application/json",
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
   };
 
   static Uri login = Uri.parse(BaseUrl.login);
+  // static Uri log = Uri.parse(BaseUrl.log);
   static Uri board = Uri.parse(BaseUrl.board);
 }

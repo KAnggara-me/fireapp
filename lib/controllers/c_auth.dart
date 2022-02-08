@@ -163,7 +163,7 @@ abstract class LoginController extends State<Login> {
   ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      preferences.setInt("intro", id);
+      preferences.setInt("uid", id);
       preferences.setInt("status", status);
       preferences.setInt("mq2Max", mq2Max);
       preferences.setInt("tempMax", tempMax);
