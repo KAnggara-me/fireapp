@@ -1,6 +1,4 @@
-import 'package:fire_app/widgets/w_sensor.dart';
-
-import '../../constant/url.dart';
+import '../../widgets/w_sensor.dart';
 import '../../constant/colors.dart';
 import '../../controllers/c_log.dart';
 import 'package:flutter/material.dart';
