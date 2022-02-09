@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ProfileController extends State<ProfileBody> {
   bool isConnect = false;
-  late String name, email, imageUrl, password, helpMsg, helpWa;
+  late String email, imageUrl, password, helpMsg, helpWa;
+  String name = 'Profile';
   int? status;
 
   @override

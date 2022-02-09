@@ -16,9 +16,9 @@ class _ProfileBodyState extends ProfileController {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
-        title: const Text(
-          "Profile",
-          style: TextStyle(
+        title: Text(
+          name,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 30,
           ),
