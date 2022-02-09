@@ -10,7 +10,6 @@ abstract class SensorController extends State<SensorPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   // Membuat List Dari data API
   List<SensorModel> listModel = [];
-
   late Timer stimer;
   var loading = false;
   int? mq2Max, tempMax, humiMax, status;
@@ -37,6 +36,23 @@ abstract class SensorController extends State<SensorPage> {
     super.dispose();
   }
 
+  getPref() async {
+    final SharedPreferences pref = await _prefs;
+    if (mounted) {
+      setState(() {
+        mq2Max = pref.getInt("mq2Max");
+        status = pref.getInt("status");
+        tempMax = pref.getInt("tempMax");
+        humiMax = pref.getInt("humiMax");
+        userId = pref.getInt("uid").toString();
+        mq2Op = pref.getString("mq2Op").toString();
+        tempOp = pref.getString("tempOp").toString();
+        humiOp = pref.getString("humiOp").toString();
+      });
+    }
+    getData();
+  }
+
   Future<void> getData() async {
     if (status == 1) {
       url = API.getAllSensor();
@@ -61,22 +77,5 @@ abstract class SensorController extends State<SensorPage> {
         );
       }
     }
-  }
-
-  getPref() async {
-    final SharedPreferences pref = await _prefs;
-    if (mounted) {
-      setState(() {
-        mq2Max = pref.getInt("mq2Max");
-        status = pref.getInt("status");
-        tempMax = pref.getInt("tempMax");
-        humiMax = pref.getInt("humiMax");
-        userId = pref.getInt("uid").toString();
-        mq2Op = pref.getString("mq2Op").toString();
-        tempOp = pref.getString("tempOp").toString();
-        humiOp = pref.getString("humiOp").toString();
-      });
-    }
-    getData();
   }
 }
