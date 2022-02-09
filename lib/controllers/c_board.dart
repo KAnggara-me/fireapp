@@ -41,7 +41,6 @@ abstract class BoardController extends State<BoardPage> {
   void initState() {
     super.initState();
     loading = true;
-    getData();
     getPref();
     timer = Timer.periodic(
       const Duration(
@@ -69,5 +68,6 @@ abstract class BoardController extends State<BoardPage> {
         humiOp = preferences.getString("humiOp").toString();
       });
     }
+    getData();
   }
 }
