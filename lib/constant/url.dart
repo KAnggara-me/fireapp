@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
 
 class BaseUrl {
-  static String baseUrl = "https://fireapp.kahosting.my.id/api/";
+  // static String baseUrl = "https://fireapp.kahosting.my.id/api/";
+  static String baseUrl = "http://api.test/api/";
   static String log = baseUrl + "log";
   static String board = baseUrl + "board";
   static String sensor = baseUrl + "sensor";
@@ -30,12 +31,19 @@ class API {
     return http.get(Uri.parse(BaseUrl.sensor));
   }
 
+  static Future getAllLog() {
+    return http.get(Uri.parse(BaseUrl.log));
+  }
+
+  static Future getLogById($id) {
+    return http.get(Uri.parse(BaseUrl.log + "/" + $id));
+  }
+
   static Map<String, String>? headers = {
     "Accept": "application/json",
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
   };
 
   static Uri login = Uri.parse(BaseUrl.login);
-  // static Uri log = Uri.parse(BaseUrl.log);
   static Uri board = Uri.parse(BaseUrl.board);
 }

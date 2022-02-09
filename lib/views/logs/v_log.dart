@@ -1,5 +1,6 @@
+import 'package:fire_app/widgets/w_sensor.dart';
+
 import '../../constant/url.dart';
-import '../../widgets/w_board.dart';
 import '../../constant/colors.dart';
 import '../../controllers/c_log.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,6 @@ class _LogPageState extends LogController {
       'id',
       timeago.IdMessages(),
     );
-    // ignore: avoid_print
-    print(API.board);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
@@ -41,23 +40,25 @@ class _LogPageState extends LogController {
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
-                itemCount: listModel.length,
+                itemCount: logModel.length,
                 itemBuilder: (context, i) {
-                  final nDataList = listModel[i];
-                  return Board(
-                    id: nDataList.id,
-                    lon: nDataList.temp.toDouble(),
-                    lat: nDataList.humidity.toDouble(),
-                    name: nDataList.ruangan,
-                    temp: nDataList.temp,
-                    time: nDataList.updatedAt,
-                    humidity: nDataList.humidity,
-                    tempMax: 40,
-                    tempOp: ">",
-                    humiMax: 50,
-                    humiOp: ">",
-                    mq2Max: 220,
-                    mq2Op: ">",
+                  final logData = logModel[i];
+                  return Sensor(
+                    mq2Max: mq2Max,
+                    humiMax: humiMax,
+                    tempMax: tempMax,
+                    id: logData.id,
+                    mq2: logData.mq2,
+                    lat: logData.humidity.toDouble(),
+                    lon: logData.temp.toDouble(),
+                    temp: logData.temp,
+                    name: logData.ruangan,
+                    notif: logData.notif,
+                    status: logData.status,
+                    time: logData.updatedAt,
+                    boardId: logData.boardId,
+                    ruangan: logData.ruangan,
+                    humidity: logData.humidity,
                   );
                 },
               ),

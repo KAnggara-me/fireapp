@@ -20,16 +20,9 @@ class LogModel {
     required this.updatedAt,
   });
 
-  int id;
-  int mq2;
-  int temp;
-  int boardId;
-  int humidity;
-  String notif;
-  String status;
-  String ruangan;
-  DateTime createdAt;
-  DateTime updatedAt;
+  final int id, mq2, temp, boardId, humidity;
+  final String notif, status, ruangan;
+  final DateTime createdAt, updatedAt;
 
   factory LogModel.fromJson(Map<String, dynamic> json) => LogModel(
         id: json["id"],
