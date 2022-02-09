@@ -11,6 +11,17 @@ class UserSetting extends StatefulWidget {
 class _UserSettingState extends UserSettingController {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Column(
+        children: const [
+          SizedBox(
+            height: 50,
+          ),
+        ],
+      ),
+    );
   }
 }

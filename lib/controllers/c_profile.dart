@@ -1,6 +1,5 @@
 import './c_auth.dart';
 import '../constant/url.dart';
-import '../controllers/c_setting.dart';
 import 'package:flutter/material.dart';
 import '../views/profile/v_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,11 +52,16 @@ abstract class ProfileController extends State<ProfileBody> {
   }
 
   setting() {
-    if (status == 1) {
-      Navigator.pushNamed(context, AdminSettingScreen.routeName);
-    } else {
-      Navigator.pushNamed(context, UserSettingScreen.routeName);
-    }
+    // if (status == 1) {
+    //   Navigator.pushNamed(context, AdminSettingScreen.routeName);
+    // } else {
+    //   Navigator.pushNamed(context, UserSettingScreen.routeName);
+    // }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Coming Soon...."),
+      ),
+    );
   }
 
   signOut() async {
