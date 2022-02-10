@@ -62,10 +62,14 @@ class _LoginState extends LoginController {
               )
             ],
           ),
-          Text(
-            msg,
-            style: const TextStyle(fontSize: 20.0, color: Colors.red),
-          ),
+          loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Text(
+                  msg,
+                  style: const TextStyle(fontSize: 20.0, color: Colors.red),
+                ),
           LoginButton(
             text: "Login",
             press: () {
