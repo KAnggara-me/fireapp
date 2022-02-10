@@ -3,6 +3,7 @@ import '../constant/url.dart';
 import 'package:flutter/material.dart';
 import '../views/profile/v_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ProfileController extends State<ProfileBody> {
@@ -41,6 +42,11 @@ abstract class ProfileController extends State<ProfileBody> {
 
   notification() async {
     SharedPreferences pref = await _prefs;
+    if (notif == 1) {
+      await FirebaseMessaging.instance.unsubscribeFromTopic('api');
+    } else if (notif == 0) {
+      await FirebaseMessaging.instance.subscribeToTopic('api');
+    }
     setState(() {
       if (notif == 1) {
         notif = 0;
