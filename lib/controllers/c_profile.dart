@@ -6,10 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ProfileController extends State<ProfileBody> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool isConnect = false;
   late String email, imageUrl, password, helpMsg, helpWa;
   String name = 'Profile';
-  int? status;
+  int? status, notif;
 
   @override
   void initState() {
@@ -38,26 +39,34 @@ abstract class ProfileController extends State<ProfileBody> {
     }
   }
 
-  getPref() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+  notification() async {
+    SharedPreferences pref = await _prefs;
     setState(() {
-      status = preferences.getInt("status");
-      name = preferences.getString("name").toString();
-      email = preferences.getString("email").toString();
-      helpWa = preferences.getString("helpWa").toString();
-      helpMsg = preferences.getString("helpMsg").toString();
-      password = preferences.getString("password").toString();
+      if (notif == 1) {
+        notif = 0;
+      } else {
+        notif = 1;
+      }
+      pref.setInt("notif", notif!);
+    });
+  }
+
+  getPref() async {
+    SharedPreferences pref = await _prefs;
+    setState(() {
+      notif = pref.getInt("notif");
+      status = pref.getInt("status");
+      name = pref.getString("name").toString();
+      email = pref.getString("email").toString();
+      helpWa = pref.getString("helpWa").toString();
+      helpMsg = pref.getString("helpMsg").toString();
+      password = pref.getString("password").toString();
       imageUrl = BaseUrl.image;
       isConnect = true;
     });
   }
 
   setting() {
-    // if (status == 1) {
-    //   Navigator.pushNamed(context, AdminSettingScreen.routeName);
-    // } else {
-    //   Navigator.pushNamed(context, UserSettingScreen.routeName);
-    // }
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text("Coming Soon...."),
@@ -66,22 +75,23 @@ abstract class ProfileController extends State<ProfileBody> {
   }
 
   signOut() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    SharedPreferences pref = await _prefs;
     setState(() {
-      preferences.setInt("intro", 0);
-      preferences.setInt("status", 0);
-      preferences.setInt("mq2Max", 0);
-      preferences.setInt("tempMax", 0);
-      preferences.setInt("humiMax", 0);
-      preferences.setString("name", '');
-      preferences.setString("pesan", '');
-      preferences.setString("email", '');
-      preferences.setString("mq2Op", '');
-      preferences.setString("tempOp", '');
-      preferences.setString("humiOp", '');
-      preferences.setString("helpWa", '');
-      preferences.setString("helpMsg", '');
-      preferences.setString("password", '');
+      pref.setInt("notif", 0);
+      pref.setInt("intro", 0);
+      pref.setInt("status", 0);
+      pref.setInt("mq2Max", 0);
+      pref.setInt("tempMax", 0);
+      pref.setInt("humiMax", 0);
+      pref.setString("name", '');
+      pref.setString("pesan", '');
+      pref.setString("email", '');
+      pref.setString("mq2Op", '');
+      pref.setString("tempOp", '');
+      pref.setString("humiOp", '');
+      pref.setString("helpWa", '');
+      pref.setString("helpMsg", '');
+      pref.setString("password", '');
       Navigator.pushReplacementNamed(
         context,
         LoginScreen.routeName,

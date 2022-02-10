@@ -55,10 +55,16 @@ class _ProfileBodyState extends ProfileController {
               icon: Icons.person,
               press: () => {},
             ),
-            ProfileMenu(
-              text: "Notifications",
-              icon: Icons.notifications,
-              press: () {},
+            Notif(
+              text: "Notifications ",
+              notif: notif == 0 ? "Non Active" : "Active",
+              color: notif == 0
+                  ? const Color(0xFF9B2226)
+                  : const Color(0xFF06b3fa),
+              icon: notif == 0 ? Icons.notifications_off : Icons.notifications,
+              press: () {
+                notification();
+              },
             ),
             ProfileMenu(
               text: "Settings",
