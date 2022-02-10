@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fire_app/constant/url.dart';
@@ -30,7 +32,6 @@ class _BoardDetailState extends State<BoardDetail> {
 
     if (responseData.statusCode == 200) {
       final data = jsonDecode(responseData.body);
-      // ignore: avoid_print
       print(data);
       setState(() {
         for (Map<String, dynamic> i in data) {
@@ -62,41 +63,35 @@ class _BoardDetailState extends State<BoardDetail> {
                 itemCount: listModel.length,
                 itemBuilder: (context, i) {
                   final sensorList = listModel[i];
-                  return InkWell(
-                    onTap: () {
-                      // ignore: avoid_print
-                      print(sensorList.id);
-                    },
-                    child: Card(
-                      color: Colors.amber[100],
-                      margin: const EdgeInsets.all(15),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              sensorList.ruangan,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.green),
-                            ),
-                            Text(timeago.format(
-                              sensorList.createdAt,
-                              locale: 'id',
-                              allowFromNow: true,
-                            )),
-                            Text(timeago.format(
-                              sensorList.updatedAt,
-                              locale: 'id',
-                              allowFromNow: true,
-                            )),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
+                  return Card(
+                    color: Colors.amber[100],
+                    margin: const EdgeInsets.all(15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            sensorList.ruangan,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.green),
+                          ),
+                          Text(timeago.format(
+                            sensorList.createdAt,
+                            locale: 'id',
+                            allowFromNow: true,
+                          )),
+                          Text(timeago.format(
+                            sensorList.updatedAt,
+                            locale: 'id',
+                            allowFromNow: true,
+                          )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
                       ),
                     ),
                   );
