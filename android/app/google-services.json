@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "756242541281",
+    "project_id": "fire-app-1121",
+    "storage_bucket": "fire-app-1121.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756242541281:android:d1676421ae4349e20e65a0",
+        "android_client_info": {
+          "package_name": "my.id.kanggara.fireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756242541281-q970ddar81o60suhej7ecdolqin4ep5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "my.id.kanggara.fireapp",
+            "certificate_hash": "f08ca61355c855d5b9bf71046edac9f0c80162d3"
+          }
+        },
+        {
+          "client_id": "756242541281-g2lbg4i4fkga7o97th0jipckouag2h9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlerMGrNzELOQ12pGurU-qogqq1gu5c8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756242541281-g2lbg4i4fkga7o97th0jipckouag2h9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
