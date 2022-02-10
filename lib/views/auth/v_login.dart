@@ -1,5 +1,5 @@
-import 'package:fire_app/constant/size.dart';
-import 'package:fire_app/views/auth/v_login_form.dart';
+import './v_login_form.dart';
+import '../../constant/size.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatelessWidget {
