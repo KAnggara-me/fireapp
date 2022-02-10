@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
 
 abstract class LoginController extends State<Login> {
   String msg = '', pmsg = '', emsg = '';
-  bool _secureText = true, remember = true;
+  bool _secureText = true, remember = true, loading = false;
   final List<String> errors = [];
 
   TextEditingController user = TextEditingController();
@@ -61,11 +61,14 @@ abstract class LoginController extends State<Login> {
         msg = pmsg + '\n';
       });
     } else {
+      setState(
+        () {
+          loading = true;
+        },
+      );
       login();
     }
   }
-
-  bool loading = false;
 
   Future<void> login() async {
     Map body = {
