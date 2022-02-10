@@ -21,7 +21,7 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.10
       - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+        run: echo ${{ steps.gitversion.outputs.FullSemVer  }} > version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
