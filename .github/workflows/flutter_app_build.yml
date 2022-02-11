@@ -2,7 +2,7 @@ name: App Android Release
 
 on:
   push:
-    branches: [release]
+    branches: [main]
 
 jobs:
   version:
@@ -20,7 +20,7 @@ jobs:
       - name: Use GitVersion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.10
-      - name: Create version.txt with nuGetVersion
+      - name: Create version.txt with FullSemVer
         run: echo ${{ steps.gitversion.outputs.FullSemVer  }} > version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
