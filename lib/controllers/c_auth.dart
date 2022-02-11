@@ -133,19 +133,21 @@ abstract class LoginController extends State<Login> {
 
     if (data.isEmpty) {
       setState(() {
+        loading = false;
         msg = "Error";
       });
     } else {
+      setState(
+        () {
+          loading = false;
+          msg = pesan + '\n';
+        },
+      );
       if (status == 2) {
         Navigator.pushReplacementNamed(context, UserScreen.routeName);
       } else if (status == 1) {
         Navigator.pushReplacementNamed(context, AdminScreen.routeName);
       }
-      setState(
-        () {
-          msg = pesan + '\n';
-        },
-      );
     }
   }
 

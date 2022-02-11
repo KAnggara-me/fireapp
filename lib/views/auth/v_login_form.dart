@@ -70,6 +70,9 @@ class _LoginState extends LoginController {
                   msg,
                   style: const TextStyle(fontSize: 20.0, color: Colors.red),
                 ),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
           LoginButton(
             text: "Login",
             press: () {
