@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:flutter/foundation.dart';
 import './c_auth.dart';
 import './c_navbar.dart';
 import '../constant/size.dart';
@@ -37,9 +37,17 @@ abstract class SplashController extends State<SplashScreen> {
     int? notif = preferences.getInt("notif") ?? 0;
     if (notif == 1) {
       // subscribe to topic on each app start-up
-      await FirebaseMessaging.instance.subscribeToTopic('api');
+      if (!kIsWeb) {
+        await FirebaseMessaging.instance.subscribeToTopic('api');
+      } else {
+        print("Notification disabled on web");
+      }
     } else if (notif == 0) {
-      await FirebaseMessaging.instance.unsubscribeFromTopic('api');
+      if (!kIsWeb) {
+        await FirebaseMessaging.instance.unsubscribeFromTopic('api');
+      } else {
+        print("Notification disabled on web");
+      }
     }
     setState(
       () {
