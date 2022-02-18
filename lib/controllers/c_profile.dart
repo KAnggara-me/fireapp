@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import './c_auth.dart';
 import '../constant/url.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +59,21 @@ abstract class ProfileController extends State<ProfileBody> {
     });
   }
 
+  webNotification() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Notif not yet available for web"),
+      ),
+    );
+  }
+
   getPref() async {
     SharedPreferences pref = await _prefs;
     setState(() {
-      notif = pref.getInt("notif");
       status = pref.getInt("status");
       name = pref.getString("name").toString();
       email = pref.getString("email").toString();
+      notif = (kIsWeb) ? 0 : pref.getInt("notif");
       helpWa = pref.getString("helpWa").toString();
       helpMsg = pref.getString("helpMsg").toString();
       password = pref.getString("password").toString();

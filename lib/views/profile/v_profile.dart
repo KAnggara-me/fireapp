@@ -1,5 +1,6 @@
 import 'package:fire_app/controllers/c_profile.dart';
 import 'package:fire_app/widgets/w_profile_menu.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProfileBody extends StatefulWidget {
@@ -63,7 +64,11 @@ class _ProfileBodyState extends ProfileController {
                   : const Color(0xFF06b3fa),
               icon: notif == 0 ? Icons.notifications_off : Icons.notifications,
               press: () {
-                notification();
+                if (kIsWeb) {
+                  webNotification();
+                } else {
+                  notification();
+                }
               },
             ),
             ProfileMenu(
