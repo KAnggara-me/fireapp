@@ -1,4 +1,4 @@
-import './v_login_form.dart';
+import './v_auth_form.dart';
 import '../../constant/size.dart';
 import 'package:flutter/material.dart';
 

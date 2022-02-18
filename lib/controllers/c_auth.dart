@@ -6,7 +6,7 @@ import '../views/auth/v_login.dart';
 import '../controllers/c_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../views/auth/v_login_form.dart';
+import '../views/auth/v_auth_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {

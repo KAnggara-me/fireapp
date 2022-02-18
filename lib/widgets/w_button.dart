@@ -1,13 +1,15 @@
 import '../constant/size.dart';
 import 'package:flutter/material.dart';
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
     Key? key,
     required this.text,
     required this.press,
+    this.bgcolor = const Color.fromARGB(255, 32, 207, 174),
   }) : super(key: key);
   final String text;
+  final Color? bgcolor;
   final VoidCallback press;
 
   @override
@@ -17,7 +19,7 @@ class LoginButton extends StatelessWidget {
       height: getProportionateScreenHeight(56),
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 32, 207, 174),
+          backgroundColor: bgcolor,
           padding: const EdgeInsets.all(16.0),
           textStyle: const TextStyle(fontSize: 20),
           shape: RoundedRectangleBorder(

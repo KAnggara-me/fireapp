@@ -1,10 +1,8 @@
-// ignore_for_file: avoid_print
-
-import 'package:fire_app/constant/colors.dart';
-import 'package:fire_app/constant/size.dart';
-import 'package:fire_app/controllers/c_auth.dart';
-import 'package:fire_app/helpers/keyboard.dart';
-import 'package:fire_app/widgets/w_button.dart';
+import '../../constant/size.dart';
+import '../../constant/colors.dart';
+import '../../helpers/keyboard.dart';
+import '../../widgets/w_button.dart';
+import '../../controllers/c_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -39,7 +37,6 @@ class _LoginState extends LoginController {
                 onChanged: (i) {
                   setState(() {
                     remember = i!;
-                    print(i);
                   });
                 },
               ),
@@ -73,8 +70,30 @@ class _LoginState extends LoginController {
           SizedBox(
             height: getProportionateScreenHeight(10),
           ),
-          LoginButton(
+          DefaultButton(
             text: "Login",
+            press: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                KeyboardUtil.hideKeyboard(context);
+                cek();
+              }
+            },
+          ),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
+          Text(
+            "or",
+            style: TextStyle(
+              fontSize: getProportionateScreenWidth(12.5),
+            ),
+          ),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
+          DefaultButton(
+            text: "Register",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
