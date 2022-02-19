@@ -92,7 +92,9 @@ abstract class ProfileController extends State<ProfileBody> {
 
   signOut() async {
     SharedPreferences pref = await _prefs;
-    await FirebaseMessaging.instance.unsubscribeFromTopic('api');
+    if (!kIsWeb) {
+      await FirebaseMessaging.instance.unsubscribeFromTopic('api');
+    }
     setState(() {
       pref.setInt("notif", 0);
       pref.setInt("intro", 0);
