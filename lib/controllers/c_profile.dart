@@ -13,7 +13,7 @@ abstract class ProfileController extends State<ProfileBody> {
   bool isConnect = false;
   late String email, imageUrl, password, helpMsg, helpWa;
   String name = 'Profile';
-  int? status, notif;
+  int? status, notif, uid;
 
   @override
   void initState() {
@@ -71,6 +71,7 @@ abstract class ProfileController extends State<ProfileBody> {
     SharedPreferences pref = await _prefs;
     setState(() {
       status = pref.getInt("status");
+      uid = pref.getInt("uid");
       name = pref.getString("name").toString();
       email = pref.getString("email").toString();
       notif = (kIsWeb) ? 0 : pref.getInt("notif");

@@ -5,8 +5,10 @@ import '../constant/text.dart';
 import '../views/auth/v_login.dart';
 import '../controllers/c_navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import '../views/auth/v_register.dart';
 import '../views/auth/v_auth_form.dart';
+import 'package:http/http.dart' as http;
+import '../helpers/location_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -18,6 +20,19 @@ class LoginScreen extends StatelessWidget {
     SizeConfig().init(context);
     return const Scaffold(
       body: LoginBody(),
+    );
+  }
+}
+
+class RegisterScreen extends StatelessWidget {
+  static String routeName = "/register";
+
+  const RegisterScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    return const Scaffold(
+      body: RegisterBody(),
     );
   }
 }
@@ -38,16 +53,17 @@ abstract class LoginController extends State<Login> {
   }
 
   forgot() {
-    Navigator.pushNamed(
-      context,
-      AdminScreen.routeName,
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Coming Soon...."),
+      ),
     );
   }
 
-  guest() {
-    Navigator.pushNamed(
+  register() {
+    Navigator.pushReplacementNamed(
       context,
-      AdminScreen.routeName,
+      RegisterScreen.routeName,
     );
   }
 
@@ -208,16 +224,15 @@ abstract class LoginController extends State<Login> {
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        hintText: "Username/Email",
+        hintText: "E-Mail",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: IconButton(
+        suffixIcon: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(20)!,
           ),
-          iconSize: SizeConfig.screenHeight * 0.04,
-          onPressed: () {},
-          icon: const Icon(
+          child: Icon(
             Icons.mail,
+            size: SizeConfig.screenHeight * 0.04,
           ),
         ),
       ),
@@ -242,6 +257,327 @@ abstract class LoginController extends State<Login> {
           pmsg = kPassNullError;
         } else if (value.length < 6) {
           pmsg = kShortPassError;
+        }
+        return;
+      },
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        hintText: "Enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: IconButton(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20)!,
+          ),
+          iconSize: SizeConfig.screenHeight * 0.04,
+          onPressed: showHide,
+          icon: Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+        ),
+      ),
+    );
+  }
+}
+
+abstract class RegisterController extends State<Register> {
+  LocationService locationService = LocationService();
+
+  double lon = 0;
+  double lat = 0;
+
+  String msg = '', pmsg = '', emsg = '';
+  bool _secureText = true,
+      remember = true,
+      loading = false,
+      locationStatus = false;
+  final List<String> errors = [];
+
+  TextEditingController user = TextEditingController();
+  TextEditingController fname = TextEditingController();
+  TextEditingController pass0 = TextEditingController();
+  TextEditingController pass1 = TextEditingController();
+
+  @override
+  void dispose() {
+    locationService.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    locationService.locationStream.listen((userLocation) {
+      setState(() {
+        lon = userLocation.longitude;
+        lat = userLocation.latitude;
+        locationStatus = true;
+      });
+    });
+  }
+
+  showHide() {
+    setState(() {
+      _secureText = !_secureText;
+      msg = '';
+    });
+  }
+
+  cek() {
+    if (emsg.isNotEmpty) {
+      setState(() {
+        msg = emsg + '\n';
+      });
+    } else if (pmsg.isNotEmpty) {
+      setState(() {
+        msg = pmsg + '\n';
+      });
+    } else if (pass0.text != pass1.text) {
+      setState(() {
+        msg = pmsg + '\n';
+      });
+    } else {
+      if (locationStatus == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Waiting for location"),
+          ),
+        );
+      } else {
+        setState(
+          () {
+            loading = true;
+          },
+        );
+        register();
+      }
+    }
+  }
+
+  Future<void> register() async {
+    Map body = {
+      "name": fname.text,
+      "email": user.text,
+      "token": API.token,
+      "lon": lon.toString(),
+      "lat": lat.toString(),
+      "password": pass0.text,
+    };
+
+    final response = await http.post(
+      API.register,
+      body: body,
+      headers: API.headers,
+      encoding: Encoding.getByName("utf-8"),
+    );
+    Map<String, dynamic> data = json.decode(response.body);
+
+    int id = data['id'] ?? 0;
+    int status = data['status'] ?? 0;
+    int mq2Max = data['mq2_max'] ?? 0;
+    int tempMax = data['temp_max'] ?? 0;
+    int humiMax = data['humi_max'] ?? 0;
+    int noWa = data['help_wa'] ?? 6282284705204;
+    String name = data['name'] ?? '';
+    String email = data['email'] ?? '';
+    String password = data['password'];
+    String pesan = data['messege'] ?? "";
+    String mq2Op = data['mq2_op'] ?? "=";
+    String humiOp = data['humi_op'] ?? "=";
+    String tempOp = data['temp_op'] ?? "=";
+    String helpWa = noWa.toString();
+    String helpMsg = data['help_msg'] ?? "Fire-App";
+    savePref(
+      id,
+      name,
+      email,
+      mq2Op,
+      status,
+      mq2Max,
+      humiOp,
+      tempOp,
+      helpWa,
+      helpMsg,
+      tempMax,
+      humiMax,
+      password,
+    );
+
+    if (data.isEmpty) {
+      setState(() {
+        loading = false;
+        msg = "Error";
+      });
+    } else {
+      setState(
+        () {
+          loading = false;
+          msg = pesan + '\n';
+        },
+      );
+      Navigator.pushReplacementNamed(context, UserScreen.routeName);
+    }
+  }
+
+  savePref(
+    id,
+    name,
+    email,
+    mq2Op,
+    status,
+    mq2Max,
+    humiOp,
+    tempOp,
+    helpWa,
+    helpMsg,
+    tempMax,
+    humiMax,
+    password,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setInt("uid", id);
+      preferences.setInt("status", status);
+      preferences.setInt("mq2Max", mq2Max);
+      preferences.setInt("tempMax", tempMax);
+      preferences.setInt("humiMax", humiMax);
+      preferences.setString("name", name);
+      preferences.setString("email", email);
+      preferences.setString("mq2Op", mq2Op);
+      preferences.setString("tempOp", tempOp);
+      preferences.setString("humiOp", humiOp);
+      preferences.setString("helpWa", helpWa);
+      preferences.setString("helpMsg", helpMsg);
+      preferences.setString("password", password);
+    });
+  }
+
+  //Config for fullname section
+  TextFormField fullnameField() {
+    return TextFormField(
+      controller: fname,
+      keyboardType: TextInputType.name,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          emsg = '';
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          emsg = kUserNullError;
+        }
+        return;
+      },
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        hintText: "Full Name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20)!,
+          ),
+          child: Icon(
+            Icons.person,
+            size: SizeConfig.screenHeight * 0.04,
+          ),
+        ),
+      ),
+    );
+  }
+
+  //Config for Username section
+  TextFormField usernameField() {
+    return TextFormField(
+      controller: user,
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          emsg = '';
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          emsg = '';
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          emsg = kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          emsg = kInvalidEmailError;
+        }
+        return;
+      },
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        hintText: "Email",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20)!,
+          ),
+          child: Icon(
+            Icons.mail,
+            size: SizeConfig.screenHeight * 0.04,
+          ),
+        ),
+      ),
+    );
+  }
+
+  //Config for passwordd section
+  TextFormField passwordField0() {
+    return TextFormField(
+      controller: pass0,
+      obscureText: _secureText,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          pmsg = '';
+        } else if (value.length >= 6) {
+          pmsg = '';
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          pmsg = kPassNullError;
+        } else if (value.length < 6) {
+          pmsg = kShortPassError;
+        }
+        return;
+      },
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        hintText: "Enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: IconButton(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20)!,
+          ),
+          iconSize: SizeConfig.screenHeight * 0.04,
+          onPressed: showHide,
+          icon: Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+        ),
+      ),
+    );
+  }
+
+  //Config for passwordd section
+  TextFormField passwordField1() {
+    return TextFormField(
+      controller: pass1,
+      obscureText: _secureText,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          pmsg = '';
+        } else if (value.length >= 6) {
+          pmsg = '';
+        }
+        return;
+      },
+      validator: (value) {
+        if (value != pass0.text) {
+          pmsg = kMatchPassError;
         }
         return;
       },

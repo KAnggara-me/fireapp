@@ -7,6 +7,7 @@ class BaseUrl {
   static String board = baseUrl + "board";
   static String sensor = baseUrl + "sensor";
   static String login = baseUrl + "auth";
+  static String register = baseUrl + "register";
   static String image = "https://source.unsplash.com/600x600/?men";
 }
 
@@ -45,5 +46,7 @@ class API {
   };
 
   static Uri login = Uri.parse(BaseUrl.login);
+  static Uri register = Uri.parse(BaseUrl.register);
   static Uri board = Uri.parse(BaseUrl.board);
+  static String token = "9tm3EwzD";
 }

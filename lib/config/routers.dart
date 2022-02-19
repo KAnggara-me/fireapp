@@ -9,6 +9,7 @@ final Map<String, WidgetBuilder> routes = {
   SplashPage.routeName: (context) => const SplashPage(),
   AdminScreen.routeName: (context) => const AdminScreen(),
   LoginScreen.routeName: (context) => const LoginScreen(),
+  RegisterScreen.routeName: (context) => const RegisterScreen(),
   UserSettingScreen.routeName: (context) => const UserSettingScreen(),
   AdminSettingScreen.routeName: (context) => const AdminSettingScreen(),
 };

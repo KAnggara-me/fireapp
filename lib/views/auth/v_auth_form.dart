@@ -94,6 +94,76 @@ class _LoginState extends LoginController {
           ),
           DefaultButton(
             text: "Register",
+            bgcolor: const Color.fromARGB(255, 11, 132, 212),
+            press: () {
+              register();
+            },
+          ),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
+
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends RegisterController {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          usernameField(),
+          SizedBox(
+            height: getProportionateScreenHeight(20),
+          ),
+          fullnameField(),
+          SizedBox(
+            height: getProportionateScreenHeight(20),
+          ),
+          passwordField0(),
+          SizedBox(
+            height: getProportionateScreenHeight(20),
+          ),
+          passwordField1(),
+          SizedBox(
+            height: getProportionateScreenHeight(20),
+          ),
+          locationStatus
+              ? Text(
+                  "Koordinat : (" + lon.toString() + "," + lat.toString() + ")",
+                  style: TextStyle(
+                    fontSize: getProportionateScreenHeight(12),
+                  ),
+                  textAlign: TextAlign.left,
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
+          SizedBox(
+            height: getProportionateScreenHeight(5),
+          ),
+          loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Text(
+                  msg,
+                  style: const TextStyle(fontSize: 20.0, color: Colors.red),
+                ),
+          DefaultButton(
+            text: "Submit",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
