@@ -40,13 +40,17 @@ abstract class SplashController extends State<SplashScreen> {
       if (!kIsWeb) {
         await FirebaseMessaging.instance.subscribeToTopic('api');
       } else {
-        print("Notification disabled on web");
+        if (kDebugMode) {
+          print("Notification disabled on web");
+        }
       }
     } else if (notif == 0) {
       if (!kIsWeb) {
         await FirebaseMessaging.instance.unsubscribeFromTopic('api');
       } else {
-        print("Notification disabled on web");
+        if (kDebugMode) {
+          print("Notification disabled on web");
+        }
       }
     }
     setState(
@@ -59,8 +63,9 @@ abstract class SplashController extends State<SplashScreen> {
         } else {
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         }
-        // ignore: avoid_print
-        print("Status => $status");
+        if (kDebugMode) {
+          print("Status => $status");
+        }
       },
     );
   }
