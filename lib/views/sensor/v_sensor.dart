@@ -30,6 +30,29 @@ class _SensorPageState extends SensorController {
             fontSize: 30,
           ),
         ),
+        actions: [
+          status == 2
+              ? IconButton(
+                  onPressed: () {
+                    openDialoog();
+                  },
+                  icon: const Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                )
+              : IconButton(
+                  onPressed: () {
+                    admin();
+                  },
+                  icon: const Icon(
+                    Icons.do_disturb_alt_sharp,
+                    color: Colors.lightBlue,
+                    size: 30,
+                  ),
+                ),
+        ],
       ),
       body: Container(
         child: loading
