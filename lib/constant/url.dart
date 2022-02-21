@@ -1,8 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class BaseUrl {
-  // static String baseUrl = "https://fireapp.kahosting.my.id/api/";
-  static String baseUrl = "http://api.test/api/";
+  static String baseUrl = "https://fireapp.kahosting.my.id/api/";
   static String log = baseUrl + "log";
   static String board = baseUrl + "board";
   static String sensor = baseUrl + "sensor";
