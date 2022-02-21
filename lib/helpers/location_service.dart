@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:fire_app/helpers/user_location.dart';
+import '../models/user_location.dart';
 import 'package:location/location.dart';
 
 class LocationService {
@@ -15,7 +14,10 @@ class LocationService {
     location.requestPermission().then((permissionStatus) {
       if (permissionStatus == PermissionStatus.granted) {
         location.onLocationChanged.listen((locationData) {
-          if (locationData != null) {
+          // do nothing if already disposed
+          if (_isDisposed) {
+            return;
+          } else {
             _locationStreamController.add(UserLocation(
               latitude: locationData.latitude!.toDouble(),
               longitude: locationData.longitude!.toDouble(),
@@ -26,5 +28,9 @@ class LocationService {
     });
   }
 
-  void dispose() => _locationStreamController.close();
+  bool _isDisposed = false;
+  void dispose() {
+    _locationStreamController.close();
+    _isDisposed = true;
+  }
 }
