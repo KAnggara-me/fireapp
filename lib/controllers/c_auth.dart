@@ -61,7 +61,7 @@ abstract class LoginController extends State<Login> {
   }
 
   register() {
-    Navigator.pushReplacementNamed(
+    Navigator.pushNamed(
       context,
       RegisterScreen.routeName,
     );
@@ -406,7 +406,7 @@ abstract class RegisterController extends State<Register> {
         loading = false;
         msg = "Error";
       });
-    } else {
+    } else if (pesan == "Success") {
       setState(
         () {
           loading = false;
@@ -414,6 +414,13 @@ abstract class RegisterController extends State<Register> {
         },
       );
       Navigator.pushReplacementNamed(context, UserScreen.routeName);
+    } else {
+      setState(
+        () {
+          loading = false;
+          msg = pesan + '\n';
+        },
+      );
     }
   }
 
