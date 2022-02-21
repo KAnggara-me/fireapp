@@ -376,9 +376,9 @@ abstract class RegisterController extends State<Register> {
     int tempMax = data['temp_max'] ?? 0;
     int humiMax = data['humi_max'] ?? 0;
     int noWa = data['help_wa'] ?? 6282284705204;
-    String name = data['name'] ?? '';
-    String email = data['email'] ?? '';
-    String password = data['password'];
+    String name = data['name'] ?? "";
+    String email = data['email'] ?? "";
+    String password = data['password'] ?? "";
     String pesan = data['messege'] ?? "";
     String mq2Op = data['mq2_op'] ?? "=";
     String humiOp = data['humi_op'] ?? "=";
