@@ -2,8 +2,7 @@ name: App Android Release
 
 on:
   push:
-    # branches: [main]
-    branches: [devOps]
+    branches: [main]
 
 jobs:
   version:
