@@ -2,7 +2,8 @@ name: App Android Release
 
 on:
   push:
-    branches: [main]
+    # branches: [main]
+    branches: [devOps]
 
 jobs:
   version:
@@ -20,8 +21,8 @@ jobs:
       - name: Use GitVersion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.10
-      - name: Create version.txt with FullSemVer
-        run: echo ${{ steps.gitversion.outputs.FullSemVer  }} > version.txt
+      - name: Create version.txt with NuGetVersionV2
+        run: echo ${{ steps.gitversion.outputs.NuGetVersionV2  }} > version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
@@ -51,6 +52,11 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
       - run: flutter build appbundle
+      - name: Rename Apps
+        run: mv build/app/outputs/apk/app-release.aab build/app/outputs/apk/Fire_App-${{ steps.version.outputs.content }}.aab
+        run: mv build/app/outputs/apk/app-x86_64-release.apk build/app/outputs/apk/Fire_App-x86_64-${{ steps.version.outputs.content }}.apk
+        run: mv build/app/outputs/apk/app-arm64-v8a-release.apk build/app/outputs/apk/Fire_App-arm64-v8a-${{ steps.version.outputs.content }}.apk
+        run: mv build/app/outputs/apk/app-armeabi-v7a-release.apk build/app/outputs/apk/Fire_App-armeabi-v7a-${{ steps.version.outputs.content }}.apk
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
