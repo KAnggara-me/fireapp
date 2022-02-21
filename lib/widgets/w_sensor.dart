@@ -1,6 +1,5 @@
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
-import '../views/board/v_board_detail.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:maps_launcher/maps_launcher.dart';
 
@@ -34,11 +33,10 @@ class Sensor extends StatelessWidget {
     Color card = temp > tempMax! ? kCardRed : kCard;
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BoardDetail(
-              id: id,
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Delete Sensor Feature: Cooming soon...",
             ),
           ),
         );
