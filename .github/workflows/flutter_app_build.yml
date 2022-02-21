@@ -49,10 +49,12 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: version.txt
-      - run: flutter pub get
+      # - run: flutter pub get
       # - run: flutter build apk --release --split-per-abi
       # - run: flutter build appbundle
       - run: pwd
+      - run: ls -l
+      - run: echo ${{ steps.version.outputs.content }}
       # - run: mv build/app/outputs/apk/release/app-release.aab build/app/outputs/apk/release/Fire_App-${{ steps.version.outputs.content }}.aab
       # - run: mv build/app/outputs/apk/release/app-release.aab build/app/outputs/apk/release/Fire_App-${{ steps.version.outputs.content }}.aab
       # - run: mv build/app/outputs/apk/release/app-x86_64-release.apk build/app/outputs/apk/release/Fire_App-x86_64-${{ steps.version.outputs.content }}.apk
