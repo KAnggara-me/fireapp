@@ -47,6 +47,7 @@ class API {
 
   static Uri login = Uri.parse(BaseUrl.login);
   static Uri register = Uri.parse(BaseUrl.register);
+  static Uri sensor = Uri.parse(BaseUrl.sensor);
   static Uri board = Uri.parse(BaseUrl.board);
   static String token = "9tm3EwzD";
 }
