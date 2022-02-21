@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
-
 import './c_auth.dart';
 import '../constant/url.dart';
 import 'package:flutter/material.dart';
 import '../views/profile/v_profile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';

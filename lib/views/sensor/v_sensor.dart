@@ -1,6 +1,6 @@
-import 'package:fire_app/controllers/c_sensor.dart';
-import 'package:fire_app/widgets/w_sensor.dart';
+import '../../widgets/w_sensor.dart';
 import 'package:flutter/material.dart';
+import '../../controllers/c_sensor.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class SensorPage extends StatefulWidget {

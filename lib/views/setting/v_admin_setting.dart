@@ -1,5 +1,5 @@
-import '/controllers/c_setting.dart';
-import '/widgets/w_setting.dart';
+import '../../controllers/c_setting.dart';
+import '../../widgets/w_setting.dart';
 import 'package:flutter/material.dart';
 
 class AdminSetting extends StatefulWidget {

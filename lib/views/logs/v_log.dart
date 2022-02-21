@@ -1,5 +1,5 @@
-import '../../widgets/w_sensor.dart';
 import '../../constant/colors.dart';
+import '../../widgets/w_sensor.dart';
 import '../../controllers/c_log.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;

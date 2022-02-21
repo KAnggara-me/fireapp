@@ -1,6 +1,6 @@
-import 'package:fire_app/controllers/c_splash.dart';
-import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart';
+import '../../controllers/c_splash.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

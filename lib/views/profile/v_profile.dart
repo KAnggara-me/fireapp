@@ -1,7 +1,7 @@
-import 'package:fire_app/controllers/c_profile.dart';
-import 'package:fire_app/widgets/w_profile_menu.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import '../../controllers/c_profile.dart';
+import '../../widgets/w_profile_menu.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -54,7 +54,9 @@ class _ProfileBodyState extends ProfileController {
             ProfileMenu(
               text: "My Account",
               icon: Icons.person,
-              press: () => {},
+              press: () {
+                setting();
+              },
             ),
             Notif(
               text: "Notifications ",

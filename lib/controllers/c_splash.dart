@@ -1,10 +1,10 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import './c_auth.dart';
 import './c_navbar.dart';
 import '../constant/size.dart';
 import '../views/splash/v_splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatelessWidget {

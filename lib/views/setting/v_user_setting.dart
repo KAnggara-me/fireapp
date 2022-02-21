@@ -1,4 +1,4 @@
-import '/controllers/c_setting.dart';
+import '../../controllers/c_setting.dart';
 import 'package:flutter/material.dart';
 
 class UserSetting extends StatefulWidget {

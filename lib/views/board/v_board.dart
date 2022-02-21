@@ -1,7 +1,7 @@
 import '../../constant/colors.dart';
 import '../../widgets/w_board.dart';
-import '../../controllers/c_board.dart';
 import 'package:flutter/material.dart';
+import '../../controllers/c_board.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class BoardPage extends StatefulWidget {

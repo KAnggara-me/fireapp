@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../constant/url.dart';
 import '../models/m_logs.dart';
 import '../views/logs/v_log.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LogController extends State<LogPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
