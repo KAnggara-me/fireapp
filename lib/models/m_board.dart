@@ -23,8 +23,8 @@ class BoardModel {
   double lat;
   double lon;
   int userId;
-  int temp;
-  int humidity;
+  double temp;
+  double humidity;
   DateTime updatedAt;
 
   factory BoardModel.fromJson(Map<String, dynamic> json) => BoardModel(

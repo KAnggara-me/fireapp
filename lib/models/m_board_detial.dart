@@ -10,25 +10,20 @@ String boardDetailModelToJson(List<BoardDetailModel> data) =>
 class BoardDetailModel {
   BoardDetailModel({
     required this.id,
-    required this.ruangan,
-    required this.humidity,
-    required this.status,
-    required this.notif,
     required this.temp,
+    required this.notif,
+    required this.status,
+    required this.ruangan,
     required this.boardId,
+    required this.humidity,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  int id;
-  String ruangan;
-  int humidity;
-  String status;
-  String notif;
-  int temp;
-  int boardId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int id, boardId;
+  double humidity, temp;
+  DateTime createdAt, updatedAt;
+  dynamic ruangan, status, notif;
 
   factory BoardDetailModel.fromJson(Map<String, dynamic> json) =>
       BoardDetailModel(
