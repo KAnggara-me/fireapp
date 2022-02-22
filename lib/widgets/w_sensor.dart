@@ -23,10 +23,10 @@ class Sensor extends StatelessWidget {
     required this.humiMax,
   }) : super(key: key);
   final DateTime time;
-  final double lat, lon;
+  final int id, mq2, boardId;
   final int? mq2Max, tempMax, humiMax;
-  final String ruangan, status, notif, name;
-  final int id, temp, humidity, mq2, boardId;
+  final double lat, lon, temp, humidity;
+  final dynamic ruangan, status, notif, name;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class Sensor extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.45,
                     child: FittedBox(
                       child: Text(
-                        ruangan,
+                        ruangan ?? "Unknown",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -81,7 +81,7 @@ class Sensor extends StatelessWidget {
                     onPressed: () => MapsLauncher.launchCoordinates(
                       lat,
                       lon,
-                      name,
+                      name ?? "Unamed",
                     ),
                     child: const Text('Buka Lokasi'),
                   ),
@@ -140,7 +140,7 @@ class Sensor extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                notif,
+                                notif ?? "Unknown",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
