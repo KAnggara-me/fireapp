@@ -9,7 +9,10 @@ jobs:
     name: Create version number
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          repository: KAnggara/fireapp
+          token: ${{ secrets.GH_TOKEN }}
       - name: Fetch all history for all tags and branches
         run: |
           git fetch --prune --depth=10000
