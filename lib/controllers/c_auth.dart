@@ -400,7 +400,6 @@ abstract class RegisterController extends State<Register> {
       humiMax,
       password,
     );
-    // FIXME: handle pop navigator after register
     if (data.isEmpty || pesan != "Success") {
       setState(() {
         loading = false;
