@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Fetch all history for all tags and branches
         run: |
-          git fetch --prune --unshallow --all
+          git fetch --prune --depth=10000
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.11
         with:
