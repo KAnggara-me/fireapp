@@ -19,9 +19,9 @@ class LogModel {
     required this.createdAt,
     required this.updatedAt,
   });
-
-  final int id, mq2, temp, boardId, humidity;
-  final String notif, status, ruangan;
+  final double temp, humidity;
+  final int id, mq2, boardId;
+  final dynamic notif, status, ruangan;
   final DateTime createdAt, updatedAt;
 
   factory LogModel.fromJson(Map<String, dynamic> json) => LogModel(

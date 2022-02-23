@@ -3,8 +3,10 @@ import 'dart:convert';
 import '../constant/url.dart';
 import '../models/m_board.dart';
 import '../views/board/v_board.dart';
+import '../models/m_board_detial.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../views/board/v_board_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BoardController extends State<BoardPage> {
@@ -68,6 +70,37 @@ abstract class BoardController extends State<BoardPage> {
         humiOp = preferences.getString("humiOp").toString();
       });
     }
+    getData();
+  }
+}
+
+abstract class DetailController extends State<BoardDetail> {
+  // Membuat List Dari data Internet
+  List<BoardDetailModel> listModel = [];
+  var loading = false;
+
+  Future<void> getData() async {
+    setState(() {
+      loading = true;
+    });
+
+    final responseData = await API.getBoardDetail(widget.id.toString());
+
+    if (responseData.statusCode == 200) {
+      final data = jsonDecode(responseData.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          listModel.add(BoardDetailModel.fromJson(i));
+        }
+        loading = false;
+      });
+    }
+  }
+
+  //Panggil Data / Call Data
+  @override
+  void initState() {
+    super.initState();
     getData();
   }
 }

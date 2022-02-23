@@ -21,12 +21,11 @@ class Board extends StatelessWidget {
     required this.tempMax,
     required this.humidity,
   }) : super(key: key);
-  final String name;
-  final double lat, lon;
+  final int id;
   final DateTime time;
-  final int humidity, temp, id;
   final int? mq2Max, tempMax, humiMax;
-  final String tempOp, humiOp, mq2Op;
+  final double lat, lon, humidity, temp;
+  final String name, tempOp, humiOp, mq2Op;
 
   @override
   Widget build(BuildContext context) {
