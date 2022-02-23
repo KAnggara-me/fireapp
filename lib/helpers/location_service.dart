@@ -13,22 +13,31 @@ class LocationService {
     location.requestService().then((status) async {
       while (!status) {
         status = await location.requestService();
+        await Future.delayed(const Duration(seconds: 2));
       }
       location.requestPermission().then((permision) async {
         while (permision != PermissionStatus.granted) {
           permision = await location.requestPermission();
+          await Future.delayed(const Duration(seconds: 2));
         }
-        location.onLocationChanged.listen((locationData) {
-          // do nothing if already disposed
-          if (_isDisposed) {
-            return;
-          } else {
-            _locationStreamController.add(UserLocation(
-              latitude: locationData.latitude!.toDouble(),
-              longitude: locationData.longitude!.toDouble(),
-            ));
-          }
-        });
+        if (permision == PermissionStatus.granted) {
+          location.onLocationChanged.listen((locationData) {
+            // do nothing if already disposed
+            if (_isDisposed) {
+              return;
+            } else {
+              _locationStreamController.add(UserLocation(
+                latitude: locationData.latitude!.toDouble(),
+                longitude: locationData.longitude!.toDouble(),
+              ));
+            }
+          });
+        } else if (permision == PermissionStatus.denied) {
+          _locationStreamController.add(UserLocation(
+            longitude: 0.0,
+            latitude: 0.0,
+          ));
+        }
       });
     });
   }
