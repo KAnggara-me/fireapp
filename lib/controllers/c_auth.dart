@@ -400,11 +400,11 @@ abstract class RegisterController extends State<Register> {
       humiMax,
       password,
     );
-
-    if (data.isEmpty) {
+    // FIXME: handle pop navigator after register
+    if (data.isEmpty || pesan != "Success") {
       setState(() {
         loading = false;
-        msg = "Error";
+        msg = "Oops, something went wrong";
       });
     } else if (pesan == "Success") {
       setState(
@@ -413,6 +413,7 @@ abstract class RegisterController extends State<Register> {
           msg = pesan + '\n';
         },
       );
+      Navigator.of(context).pop();
       Navigator.pushReplacementNamed(context, UserScreen.routeName);
     } else {
       setState(
