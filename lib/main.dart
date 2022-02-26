@@ -4,6 +4,7 @@ import './config/routers.dart';
 import './helpers/fcm_config.dart';
 import './controllers/c_main.dart';
 import './controllers/c_splash.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,7 +62,12 @@ Future<void> main() async {
       sound: true,
     );
   }
-
+  // Force Potraid
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
