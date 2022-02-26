@@ -81,10 +81,12 @@ class _ProfileBodyState extends ProfileController {
               },
             ),
             ProfileMenu(
-              text: "Help Center | id : " + uid.toString(),
+              text: isConnect
+                  ? "Help Center | Id : " + uid.toString()
+                  : "Help Center",
               icon: Icons.help,
               press: () {
-                help();
+                help(uid.toString());
               },
             ),
             ProfileMenu(
