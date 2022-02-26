@@ -18,14 +18,11 @@ class BoardModel {
     required this.updatedAt,
   });
 
-  int id;
   String name;
-  double lat;
-  double lon;
-  int userId;
-  double temp;
-  double humidity;
+  int id, userId;
+  double lat, lon;
   DateTime updatedAt;
+  dynamic temp, humidity;
 
   factory BoardModel.fromJson(Map<String, dynamic> json) => BoardModel(
         id: json["id"],

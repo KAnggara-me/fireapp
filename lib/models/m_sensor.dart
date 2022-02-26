@@ -21,11 +21,11 @@ class SensorModel {
     required this.humidity,
     required this.updatedAt,
   });
+  String name;
+  double lat, lon;
   DateTime updatedAt;
   int id, mq2, boardId;
-  double lat, lon, temp, humidity;
-  dynamic notif, status, ruangan;
-  String name;
+  dynamic notif, status, ruangan, temp, humidity;
 
   factory SensorModel.fromJson(Map<String, dynamic> json) => SensorModel(
         id: json["id"],

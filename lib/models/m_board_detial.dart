@@ -21,31 +21,30 @@ class BoardDetailModel {
   });
 
   int id, boardId;
-  double humidity, temp;
   DateTime createdAt, updatedAt;
-  dynamic ruangan, status, notif;
+  dynamic ruangan, status, notif, humidity, temp;
 
   factory BoardDetailModel.fromJson(Map<String, dynamic> json) =>
       BoardDetailModel(
         id: json["id"],
-        ruangan: json["ruangan"],
-        humidity: json["humidity"],
-        status: json["status"],
-        notif: json["notif"],
         temp: json["temp"],
+        notif: json["notif"],
+        status: json["status"],
+        ruangan: json["ruangan"],
         boardId: json["board_id"],
+        humidity: json["humidity"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "ruangan": ruangan,
-        "humidity": humidity,
-        "status": status,
-        "notif": notif,
         "temp": temp,
+        "notif": notif,
+        "status": status,
+        "ruangan": ruangan,
         "board_id": boardId,
+        "humidity": humidity,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
