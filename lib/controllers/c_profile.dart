@@ -12,7 +12,7 @@ abstract class ProfileController extends State<ProfileBody> {
   bool isConnect = false;
   late String email, imageUrl, password, helpMsg, helpWa;
   String name = 'Profile';
-  int? status, notif, uid;
+  int? status, notif, uid = 0;
 
   @override
   void initState() {
@@ -20,7 +20,7 @@ abstract class ProfileController extends State<ProfileBody> {
     getPref();
   }
 
-  help() async {
+  help(String uid) async {
     if (await canLaunch(WA.getHelp(
       helpWa,
       helpMsg,
@@ -28,7 +28,7 @@ abstract class ProfileController extends State<ProfileBody> {
       await launch(
         WA.getHelp(
           helpWa,
-          helpMsg,
+          helpMsg + uid,
         ),
         forceSafariVC: false,
       );
