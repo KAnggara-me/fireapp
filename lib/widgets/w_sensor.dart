@@ -66,25 +66,27 @@ class Sensor extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(
-                        MediaQuery.of(context).size.width * 0.15,
-                        MediaQuery.of(context).size.height * 0.04,
-                      ),
-                      maximumSize: Size(
-                        MediaQuery.of(context).size.width * 0.3,
-                        MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      primary: kBGcolor,
-                    ),
-                    onPressed: () => MapsLauncher.launchCoordinates(
-                      lat,
-                      lon,
-                      name ?? "Unamed",
-                    ),
-                    child: const Text('Buka Lokasi'),
-                  ),
+                  (lon == 0.0 && lat == 0.0)
+                      ? const SizedBox()
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(
+                              MediaQuery.of(context).size.width * 0.15,
+                              MediaQuery.of(context).size.height * 0.04,
+                            ),
+                            maximumSize: Size(
+                              MediaQuery.of(context).size.width * 0.3,
+                              MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            primary: kBGcolor,
+                          ),
+                          onPressed: () => MapsLauncher.launchCoordinates(
+                            lat,
+                            lon,
+                            name ?? "Unamed",
+                          ),
+                          child: const Text('Buka Lokasi'),
+                        ),
                 ],
               ),
               const Divider(
