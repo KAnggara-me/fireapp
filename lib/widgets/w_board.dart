@@ -58,7 +58,6 @@ class Board extends StatelessWidget {
                         name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
                           color:
                               (temp >= tempMax! ? Colors.amber : Colors.black),
                         ),
