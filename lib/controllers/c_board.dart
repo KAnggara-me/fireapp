@@ -10,12 +10,35 @@ import '../views/board/v_board_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BoardController extends State<BoardPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   // Membuat List Dari data Internet
   List<BoardModel> listModel = [];
   var loading = false;
   late Timer timer;
   int? mq2Max, tempMax, humiMax;
   late String tempOp, humiOp, mq2Op;
+
+  //Panggil Data / Call Data
+  @override
+  void initState() {
+    super.initState();
+    loading = true;
+    getPref();
+    timer = Timer.periodic(
+      const Duration(
+        seconds: 5,
+      ),
+      (t) {
+        getData();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   Future<void> getData() async {
     final responseData = await http.get(API.board);
@@ -38,28 +61,8 @@ abstract class BoardController extends State<BoardPage> {
     }
   }
 
-  //Panggil Data / Call Data
-  @override
-  void initState() {
-    super.initState();
-    loading = true;
-    getPref();
-    timer = Timer.periodic(
-      const Duration(
-        seconds: 5,
-      ),
-      (t) => getData(),
-    );
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
   getPref() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    SharedPreferences preferences = await _prefs;
     if (mounted) {
       setState(() {
         mq2Max = preferences.getInt("mq2Max");
