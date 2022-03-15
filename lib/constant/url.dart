@@ -3,9 +3,10 @@ import 'package:http/http.dart' as http;
 class BaseUrl {
   static String baseUrl = "https://fireapp.kahosting.my.id/api/";
   static String log = baseUrl + "log";
+  static String login = baseUrl + "auth";
   static String board = baseUrl + "board";
   static String sensor = baseUrl + "sensor";
-  static String login = baseUrl + "auth";
+  static String setting = baseUrl + "setting";
   static String register = baseUrl + "register";
   static String image = "https://source.unsplash.com/600x600/?men";
 }
@@ -45,8 +46,9 @@ class API {
   };
 
   static Uri login = Uri.parse(BaseUrl.login);
-  static Uri register = Uri.parse(BaseUrl.register);
-  static Uri sensor = Uri.parse(BaseUrl.sensor);
   static Uri board = Uri.parse(BaseUrl.board);
+  static Uri sensor = Uri.parse(BaseUrl.sensor);
+  static Uri setting = Uri.parse(BaseUrl.setting);
+  static Uri register = Uri.parse(BaseUrl.register);
   static String token = "9tm3EwzD";
 }

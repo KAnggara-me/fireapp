@@ -105,7 +105,7 @@ abstract class LoginController extends State<Login> {
     int mq2Max = data['mq2_max'] ?? 0;
     int tempMax = data['temp_max'] ?? 0;
     int humiMax = data['humi_max'] ?? 0;
-    int noWa = data['help_wa'] ?? 6282284705204;
+    int noWa = data['help_wa'] ?? 6289636214214;
     String name = data['name'] ?? '';
     String email = data['email'] ?? '';
     String password = data['password'];

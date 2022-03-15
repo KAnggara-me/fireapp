@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'c_setting.dart';
+
 abstract class ProfileController extends State<ProfileBody> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool isConnect = false;
@@ -83,11 +85,7 @@ abstract class ProfileController extends State<ProfileBody> {
   }
 
   setting() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Coming Soon...."),
-      ),
-    );
+    Navigator.pushNamed(context, SettingScreen.routeName);
   }
 
   signOut() async {
