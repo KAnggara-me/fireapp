@@ -150,9 +150,9 @@ abstract class LoginController extends State<Login> {
     if (data.isEmpty) {
       setState(() {
         loading = false;
-        msg = "Error";
+        msg = "Oops, something went wrong";
       });
-    } else {
+    } else if (pesan == "Success") {
       setState(
         () {
           loading = false;
@@ -164,6 +164,11 @@ abstract class LoginController extends State<Login> {
       } else if (status == 1) {
         Navigator.pushReplacementNamed(context, AdminScreen.routeName);
       }
+    } else {
+      setState(() {
+        loading = false;
+        msg = pesan;
+      });
     }
   }
 
@@ -400,11 +405,18 @@ abstract class RegisterController extends State<Register> {
       humiMax,
       password,
     );
-    if (data.isEmpty || pesan != "Success") {
+    if (data.isEmpty) {
       setState(() {
         loading = false;
         msg = "Oops, something went wrong";
       });
+    } else if (pesan != "Success") {
+      setState(
+        () {
+          loading = false;
+          msg = pesan + '\n';
+        },
+      );
     } else if (pesan == "Success") {
       setState(
         () {
