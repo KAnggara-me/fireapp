@@ -12,4 +12,8 @@ const String kAddressNullError = "Please Enter your address";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 
 // App
+const String kNotifOK = "Aman";
 const String kAppName = "Fire App";
+const String kNotiffire = "Ada Kebakaran!";
+const String kNotifTmp = "Temperatur Tinggi";
+const String kNotifsmoke = "Asap/Gas Terdeteksi";
