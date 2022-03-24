@@ -1,3 +1,5 @@
+import 'package:fire_app/constant/text.dart';
+
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -13,8 +15,6 @@ class Sensor extends StatelessWidget {
     required this.temp,
     required this.name,
     required this.time,
-    required this.notif,
-    required this.status,
     required this.ruangan,
     required this.boardId,
     required this.humidity,
@@ -26,11 +26,37 @@ class Sensor extends StatelessWidget {
   final int id, mq2, boardId;
   final int? mq2Max, tempMax, humiMax;
   final double lat, lon, temp, humidity;
-  final dynamic ruangan, status, notif, name;
+  final dynamic ruangan, name;
 
   @override
   Widget build(BuildContext context) {
-    Color card = temp > tempMax! ? kCardRed : kCard;
+    Color card, title, tnotif, tupdate;
+    String notif;
+    if (temp >= tempMax! && mq2 > mq2Max!) {
+      card = kCardRed; //Red
+      notif = kNotiffire;
+      title = Colors.amber;
+      tnotif = Colors.amber;
+      tupdate = Colors.white;
+    } else if (temp >= tempMax!) {
+      card = kCardOrange; //Orange
+      title = Colors.black;
+      tnotif = Colors.red;
+      tupdate = Colors.black;
+      notif = kNotifTmp;
+    } else if (mq2 > mq2Max!) {
+      card = kCardGrey; //Grey
+      notif = kNotifsmoke;
+      title = Colors.white;
+      tnotif = Colors.amber;
+      tupdate = Colors.black;
+    } else {
+      notif = kNotifOK;
+      card = kCardGreen; //Green
+      title = Colors.black;
+      tnotif = Colors.blue;
+      tupdate = Colors.black;
+    }
     return InkWell(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -59,8 +85,7 @@ class Sensor extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color:
-                              (temp >= tempMax! ? Colors.amber : Colors.black),
+                          color: title,
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -104,15 +129,13 @@ class Sensor extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           Text(
                             'Temperatur',
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 18,
-                              color: (temp >= tempMax!
-                                  ? Colors.white
-                                  : Colors.black),
+                              color: tupdate,
                             ),
                           ),
                           const SizedBox(
@@ -129,26 +152,24 @@ class Sensor extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          Row(
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'Sensor Asap :   ',
                                 style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: 12,
-                                  color: (temp >= tempMax!
-                                      ? Colors.white
-                                      : Colors.black),
+                                  color: tupdate,
                                 ),
                               ),
                               Text(
-                                notif ?? "Unknown",
+                                notif,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
-                                  color: (temp >= tempMax!
-                                      ? Colors.amber
-                                      : Colors.green),
+                                  color: tnotif,
                                 ),
                               ),
                             ],
@@ -166,9 +187,7 @@ class Sensor extends StatelessWidget {
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
-                            color: (temp >= tempMax!
-                                ? Colors.white
-                                : Colors.black),
+                            color: tupdate,
                           ),
                         ),
                         const SizedBox(
@@ -185,19 +204,29 @@ class Sensor extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          timeago.format(
-                            time,
-                            locale: 'id',
-                            allowFromNow: true,
-                          ),
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontSize: 10,
-                            color: (temp >= tempMax!
-                                ? Colors.white
-                                : Colors.black),
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              'Update:   ',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: tupdate,
+                              ),
+                            ),
+                            Text(
+                              timeago.format(
+                                time,
+                                locale: 'id',
+                                allowFromNow: true,
+                              ),
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 10,
+                                color: tupdate,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

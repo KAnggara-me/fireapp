@@ -73,8 +73,6 @@ class _SensorPageState extends SensorController {
                     lon: sensorData.lon,
                     temp: sensorData.temp.toDouble(),
                     name: sensorData.name,
-                    notif: sensorData.notif,
-                    status: sensorData.status,
                     time: sensorData.updatedAt,
                     boardId: sensorData.boardId,
                     ruangan: sensorData.ruangan,

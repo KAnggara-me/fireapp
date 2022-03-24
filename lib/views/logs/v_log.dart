@@ -51,8 +51,6 @@ class _LogPageState extends LogController {
                     lon: 0.0,
                     temp: logData.temp.toDouble(),
                     name: logData.ruangan,
-                    notif: logData.notif,
-                    status: logData.status,
                     time: logData.updatedAt,
                     boardId: logData.boardId,
                     ruangan: logData.ruangan,
