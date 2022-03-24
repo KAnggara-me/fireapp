@@ -7,8 +7,10 @@ const kPrimaryColor = Color(0xFF06b3fa);
 const kSecondaryColor = Color(0xFF979797);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kBGcolor = Color(0XFF005F73);
-const kCard = Color(0xFF94D2BD);
 const kCardRed = Color(0xFF9B2226);
+const kCardGrey = Color(0xFF757575);
+const kCardGreen = Color(0xFF94D2BD);
+const kCardOrange = Color(0xFFFFA53E);
 
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
