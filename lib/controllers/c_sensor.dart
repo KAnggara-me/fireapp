@@ -137,12 +137,12 @@ abstract class SensorController extends State<SensorPage> {
   Future<void> addSensor() async {
     Map body = {
       "board_id": userId.toString(),
+      "mq2": mq2Max.toString(),
       "ruangan": ruangan.text,
       "humidity": "75",
       "status": "-",
       "notif": "-",
       "temp": "28",
-      "mq2": "1000",
     };
 
     final response = await http.post(
