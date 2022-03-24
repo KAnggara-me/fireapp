@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import '../constant/url.dart';
 import '../models/m_board.dart';
+import '../models/m_sensor.dart';
 import '../views/board/v_board.dart';
-import '../models/m_board_detial.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../views/board/v_board_detail.dart';
@@ -78,32 +78,69 @@ abstract class BoardController extends State<BoardPage> {
 }
 
 abstract class DetailController extends State<BoardDetail> {
-  // Membuat List Dari data Internet
-  List<BoardDetailModel> listModel = [];
+  late Timer stimer;
   var loading = false;
-
-  Future<void> getData() async {
-    setState(() {
-      loading = true;
-    });
-
-    final responseData = await API.getBoardDetail(widget.id.toString());
-
-    if (responseData.statusCode == 200) {
-      final data = jsonDecode(responseData.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          listModel.add(BoardDetailModel.fromJson(i));
-        }
-        loading = false;
-      });
-    }
-  }
+  late Future<dynamic> url;
+  // Membuat List Dari data API
+  List<SensorModel> listModel = [];
+  int? mq2Max, tempMax, humiMax, status;
+  late String userId;
+  TextEditingController ruangan = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   //Panggil Data / Call Data
   @override
   void initState() {
     super.initState();
+    loading = true;
+    getPref();
+    stimer = Timer.periodic(
+      const Duration(
+        seconds: 5,
+      ),
+      (t) => getData(),
+    );
+  }
+
+  @override
+  void dispose() {
+    stimer.cancel();
+    super.dispose();
+  }
+
+  getPref() async {
+    final SharedPreferences pref = await _prefs;
+    if (mounted) {
+      setState(() {
+        mq2Max = pref.getInt("mq2Max");
+        status = pref.getInt("status");
+        tempMax = pref.getInt("tempMax");
+        humiMax = pref.getInt("humiMax");
+      });
+    }
     getData();
+  }
+
+  Future<void> getData() async {
+    int id = widget.id;
+    url = API.getSensorById(id.toString());
+
+    final responseData = await url;
+    if (responseData.statusCode == 200) {
+      final data = jsonDecode(responseData.body);
+      if (mounted) {
+        setState(
+          () {
+            listModel = [];
+            for (Map<String, dynamic> i in data) {
+              listModel.add(
+                SensorModel.fromJson(i),
+              );
+            }
+            loading = false;
+          },
+        );
+      }
+    }
   }
 }

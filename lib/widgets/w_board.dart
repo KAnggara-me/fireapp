@@ -29,7 +29,7 @@ class Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color card = temp > tempMax! ? kCardRed : kCard;
+    Color card = temp > tempMax! ? kCardRed : kCardGreen;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -37,6 +37,7 @@ class Board extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => BoardDetail(
               id: id,
+              name: name,
             ),
           ),
         );
