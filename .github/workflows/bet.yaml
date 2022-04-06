@@ -48,8 +48,8 @@ jobs:
       - run: ls
       - run: cat version.txt
       - run: ls -l android
-      - run: echo ${{ secrets.JKS }} > android/key.jks
-      - run: echo ${{ secrets.KEY }} > android/key.properties
+      - run: echo ${{ secrets.JKS }} | base64 --decode > android/key.jks
+      - run: echo ${{ secrets.KEY }} | base64 --decode > android/key.properties
       - run: ls -l
       - run: ls -l android
       - run: cat android/key.properties
