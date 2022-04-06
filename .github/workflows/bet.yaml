@@ -49,10 +49,10 @@ jobs:
       - run: cat version.txt
       - run: ls -l android
       - run: echo ${{ secrets.JKS }} | base64 --decode > android/key.jks
-      - run: echo ${{ secrets.KEYPASS }} | base64 --decode > android/key.properties
-      - run: echo ${{ secrets.STOREPASS }} | base64 --decode > android/key.properties
-      - run: echo ${{ secrets.ALIAS }} | base64 --decode > android/key.properties
-      - run: echo ${{ secrets.FILE }} | base64 --decode > android/key.properties
+      - run: echo ${{ secrets.KEYPASS }} > android/key.properties
+      - run: echo ${{ secrets.STOREPASS }} > android/key.properties
+      - run: echo ${{ secrets.ALIAS }} > android/key.properties
+      - run: echo ${{ secrets.FILE }} > android/key.properties
       - run: ls -l
       - run: ls -l android
       - run: cat android/key.properties
