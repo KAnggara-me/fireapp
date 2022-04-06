@@ -47,9 +47,8 @@ jobs:
           path: version.txt
       - run: ls
       - run: cat version.txt
-      - run: cd android
+      - run: ls -l android
+      - run: echo ${{ secrets.JKS }} > android/key.jks
+      - run: echo ${{ secrets.KEY }} > android/key.properties
       - run: ls -l
-      - run: echo ${{ secrets.JKS }} > key.jks
-      - run: echo ${{ secrets.KEY }} > key.properties
-      - run: ls -l
-      - run: cat key.properties
+      - run: cat android/key.properties
