@@ -53,16 +53,16 @@ android {
 
   signingConfigs {
     release {
-      storeFile file("../key.jks")
+      storeFile file("../upload-keystore.jks")
       storePassword = "$System.env.KEY_PASSWORD"
-      keyAlias = "release"
+      keyAlias = "upload"
       keyPassword = "$System.env.ALIAS_PASSWORD"
     }
   }
 
   buildTypes {
     release {
-      signingConfig signingConfigs.debug
+      signingConfig signingConfigs.release
     }
   }
 }
@@ -73,7 +73,7 @@ flutter {
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation 'com.android.support:multidex:1.0.3'
   implementation platform('com.google.firebase:firebase-bom:29.0.4')
+  implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.google.firebase:firebase-analytics'
 }
