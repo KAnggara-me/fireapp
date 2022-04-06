@@ -51,7 +51,7 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: version.txt
-      - run: echo ${{ secrets.JKS }} > android/app/key.jks
+      - run: echo ${{ secrets.JKS }} > android/key.jks
       - run: echo ${{ secrets.KEY }} > android/key.properties
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
