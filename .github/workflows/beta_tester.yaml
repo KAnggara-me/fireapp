@@ -42,10 +42,6 @@ jobs:
       - uses: subosito/flutter-action@v2.3.0
         with:
           channel: "stable"
-        env:
-          KEY_JKS: ${{ secrets.JKS }}
-          KEY_PASSWORD: ${{ secrets.PASS }}
-          ALIAS_PASSWORD: ${{ secrets.ALIAS }}
       - name: Get version.txt
         uses: actions/download-artifact@v2
         with:
@@ -55,10 +51,8 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: version.txt
-      - run: echo $KEY_JKS > android/key.jks && ls android
-      - run: echo $KEY_JKS
-      - run: echo $PASS
-      - run: echo $ALIAS
+      - run: echo ${{ secrets.JKS }} | base64 --decode > android/app/key.jks
+      - run: echo ${{ secrets.KEY }} | base64 --decode > android/key.properties
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
       - run: mv build/app/outputs/apk/release/app-x86_64-release.apk build/app/outputs/apk/release/Fire_App-x86_64.apk

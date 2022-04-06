@@ -1,5 +1,10 @@
 def localProperties = new Properties()
+def keystoreProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 if (localPropertiesFile.exists()) {
   localPropertiesFile.withReader('UTF-8') { reader ->
     localProperties.load(reader)
@@ -53,10 +58,10 @@ android {
 
   signingConfigs {
     release {
-      storeFile file("../key.jks")
-      storePassword = "$System.env.KEY_PASSWORD"
-      keyAlias = "upload"
-      keyPassword = "$System.env.ALIAS_PASSWORD"
+      keyAlias keystoreProperties.getProperty('keyAlias')
+      keyPassword keystoreProperties.getProperty('keyPassword')
+      storeFile keystoreProperties.getProperty('storeFile') ? file(keystoreProperties.getProperty('storeFile')) : null
+      storePassword keystoreProperties.getProperty('storePassword')
     }
   }
 
