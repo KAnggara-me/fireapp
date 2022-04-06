@@ -2,7 +2,7 @@ name: CI/CD Beta
 
 on:
   push:
-    branches: [beta]
+    branches: [betas]
 
 jobs:
   version:
