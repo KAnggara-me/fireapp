@@ -52,7 +52,7 @@ jobs:
         with:
           path: version.txt
       - run: echo ${{ secrets.JKS }} > android/key.jks
-      - run: echo ${{ secrets.KEY }} > android/key.properties
+      - run: echo ${{ secrets.KEY }} > android/key.properties && cat android/key.properties
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
       - run: mv build/app/outputs/apk/release/app-x86_64-release.apk build/app/outputs/apk/release/Fire_App-x86_64.apk
