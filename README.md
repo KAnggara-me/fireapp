@@ -6,6 +6,6 @@ Aplikasi deteksi Kebakaran dibuat menggunakan Flutter
 
 ## Instalation
 
-[Download](https://github.com/KAnggara/fireapp/releases/) release sesuai dengan Arsitektur CPU anda apakah [armeabi-v7a](https://developer.android.com/ndk/guides/abis?hl=id#v7a), [arm64-v8a](https://developer.android.com/ndk/guides/abis?hl=id#arm64-v8a), [x86_64](https://developer.android.com/ndk/guides/abis?hl=id#86-64)
+[Download](https://github.com/KAnggara/fireapp/releases/latest) release sesuai dengan Arsitektur CPU anda apakah [armeabi-v7a](https://developer.android.com/ndk/guides/abis?hl=id#v7a), [arm64-v8a](https://developer.android.com/ndk/guides/abis?hl=id#arm64-v8a), [x86_64](https://developer.android.com/ndk/guides/abis?hl=id#86-64)
 
 Info lebih lanjut: [Disini](https://developer.android.com/ndk/guides/abis?hl=id)
