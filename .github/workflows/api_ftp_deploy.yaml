@@ -24,10 +24,10 @@ jobs:
           server-dir: ${{ secrets.DIR }}
           local-dir: ./api/
       - name: 📦 Composer install
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.SOP_HOST }}
-            username: ${{ secrets.SOP_SSH_USERNAME }}
-            password: ${{ secrets.SOP_SSH_PASSWORD }}
-            port: ${{ secrets.SOP_SSH_PORT }}
-            script: ${{ secrets.COMPOSER }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SOP_HOST }}
+          username: ${{ secrets.SOP_SSH_USERNAME }}
+          password: ${{ secrets.SOP_SSH_PASSWORD }}
+          port: ${{ secrets.SOP_SSH_PORT }}
+          script: ${{ secrets.COMPOSER }}
