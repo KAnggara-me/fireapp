@@ -30,18 +30,18 @@ void sensor(int id)
   int mq2Max = 150;
   if (id == 1)
   {
-    Vmq2 = analogRead(pinMq2a) - 400;
+    Vmq2 = analogRead(pinMq2a) - 350;
   } else if (id == 2) {
     Vmq2 = analogRead(pinMq2b) - 300;
   } else if (id == 3) {
     Vmq2 = analogRead(pinMq2c) - 350;
   } else if (id == 4) {
-    Vmq2 = analogRead(pinMq2d) - 400;
+    Vmq2 = analogRead(pinMq2d) - 350;
   }
   Serial.println();
 
   //=============================================
-  // MQ2 Section                            // ==
+  //                MQ2 Section             // ==
   if (Vmq2 > mq2Max) {                      // ==
     Serial.print(id);                       // ==
     Serial.print(F(". MQ2 Value: "));       // ==
