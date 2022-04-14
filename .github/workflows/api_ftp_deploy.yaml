@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
+      - name: GoTo api
+        run: cd api
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -18,3 +20,16 @@ jobs:
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
           server-dir: ${{ secrets.ftp_dir}}
+  composer:
+    name: 📦 Composer install
+    needs: [web-deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SOP_HOST }}
+          username: ${{ secrets.SOP_SSH_USERNAME }}
+          password: ${{ secrets.SOP_SSH_PASSWORD }}
+          port: ${{ secrets.SOP_SSH_PORT }}
+          script: cd public_html/kah/fireapp && composer install --optimize-autoloader --no-dev
