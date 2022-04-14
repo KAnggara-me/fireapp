@@ -19,7 +19,8 @@ jobs:
           server: ${{ secrets.SOP_HOST }}
           username: ${{ secrets.SOP_SSH_USERNAME }}
           password: ${{ secrets.SOP_SSH_PASSWORD }}
-          server-dir: ${{ secrets.ftp_dir}}
+          server-dir: ${{ secrets.DIR}}
+          local-dir: ./api/
   composer:
     name: 📦 Composer install
     needs: [web-deploy]
