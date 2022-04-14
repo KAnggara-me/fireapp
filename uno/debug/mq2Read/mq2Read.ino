@@ -11,7 +11,7 @@ void setup() {
   pinMode(pinMq2c, INPUT);
   pinMode(pinMq2d, INPUT);
   pinMode(13, OUTPUT);
-
+  delay(15000);
   Serial.println(); Serial.println();
 }
 
