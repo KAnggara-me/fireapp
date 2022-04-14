@@ -8,6 +8,7 @@ jobs:
   web-deploy:
     name: 🎉 FTP Deploy
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, '#api') }}
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
@@ -22,16 +23,11 @@ jobs:
           password: ${{ secrets.SOP_SSH_PASSWORD }}
           server-dir: ${{ secrets.DIR }}
           local-dir: ./api/
-  composer:
-    name: 📦 Composer install
-    needs: [web-deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SOP_HOST }}
-          username: ${{ secrets.SOP_SSH_USERNAME }}
-          password: ${{ secrets.SOP_SSH_PASSWORD }}
-          port: ${{ secrets.SOP_SSH_PORT }}
-          script: ${{ secrets.COMPOSER }}
+      - name: 📦 Composer install
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SOP_HOST }}
+            username: ${{ secrets.SOP_SSH_USERNAME }}
+            password: ${{ secrets.SOP_SSH_PASSWORD }}
+            port: ${{ secrets.SOP_SSH_PORT }}
+            script: ${{ secrets.COMPOSER }}
