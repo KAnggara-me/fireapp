@@ -38,15 +38,15 @@ const int pinMq2c = A1;
 const int pinMq2d = A0;
 
 // Sensor DHT 11 Pin
-const int pinDHT1 = 4;
-const int pinDHT2 = 5;
+const int pinDHT1 = 5;
+const int pinDHT2 = 4;
 const int pinDHT3 = 6;
 const int pinDHT4 = 7;
 
 // sensor Value Variable dafault
 int Vmq2 = 150; // MQ2 value
-float temp = 0; // Temperature value
-float humi = 0; // Humidity Value
+float temp = 30; // Temperature value
+float humi = 70; // Humidity Value
 
 // Initial LCD Object
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -63,18 +63,27 @@ DHT dht4(pinDHT4, DHT11);
 void setup()
 {
   initial();
-  pinMode(pinBuzzer, OUTPUT);
   delay(250);
-  lcd.print(F(".."));
+  lcd.print(F("."));
   dhtSetup();
   delay(250);
-  lcd.print(F(".."));
+  lcd.print(F("."));
   koneksi();
   printWifiStatus();
   Serial.println();
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print(F("Initialize"));
+  lcd.setCursor(0, 1);
+  lcd.print(F("Sensor..."));
   Serial.println(F("Initialize all sensor..."));
   delay(15000);
   Serial.println();
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print(F("Connecting...."));
+  lcd.setCursor(0, 1);
+  lcd.print(F("To: API!"));
   Serial.println(F("Starting connection to server..."));
 }
 
@@ -86,6 +95,9 @@ void initial()
   lcd.print(F("Starting."));
   Serial.begin(115200); // initialize serial for debugging
   delay(250);
+  modePin();
+  lcd.print(F("."));
+  delay(250);
   lcd.print(F("."));
   Serial1.begin(9600);   // initialize serial for ESP module
   delay(250);
@@ -93,6 +105,19 @@ void initial()
   WiFi.init(&Serial1); // initialize ESP module
   delay(250);
   lcd.print(F("."));
+}
+
+void modePin()
+{
+  pinMode(pinDHT1, INPUT);
+  pinMode(pinDHT2, INPUT);
+  pinMode(pinDHT3, INPUT);
+  pinMode(pinDHT4, INPUT);
+  pinMode(pinMq2a, INPUT);
+  pinMode(pinMq2b, INPUT);
+  pinMode(pinMq2c, INPUT);
+  pinMode(pinMq2d, INPUT);
+  pinMode(pinBuzzer, OUTPUT);
 }
 
 void dhtSetup()
@@ -110,7 +135,7 @@ void loop()
   for (int i = 1; i <= sens; i++)
   {
     sensor(i);
-    delay(3000);
+    delay(2500);
   }
   Serial.println();
 }
@@ -119,12 +144,10 @@ void sensor(int id)
 {
   // Delay between measurements.
   // Wait a few seconds between measurements.
-  delay(3000);
-  int Vmq;
+  delay(2500);
   String notif = "Aman";
   String statuss = "Aktif";
   float t, h;
-
 
   if (id == 1)
   {
@@ -132,7 +155,7 @@ void sensor(int id)
     h = dht1.readHumidity();
     t = dht1.readTemperature();
   } else if (id == 2) {
-    Vmq = analogRead(pinMq2b) - 300;
+    Vmq2 = analogRead(pinMq2b) - 300;
     h = dht2.readHumidity();
     t = dht2.readTemperature();
   } else if (id == 3) {
@@ -149,46 +172,47 @@ void sensor(int id)
   }
 
   //=============================================
-  // MQ2 Section                            // ==
-
+  //                MQ2 Section             // ==
+  Serial.print(F("MQ2 Value: "));           // ==
+  Serial.print(Vmq2);                       // ==
   if (Vmq2 > mq2Max) {                      // ==
-    Serial.print(" | ");                    // ==
+    Serial.print(F(" | "));                 // ==
     notif = "Asap/Gas%20Terdeteksi";        // ==
     Serial.print(F("Asap/Gas Terdeteksi")); // ==
   } else if (Vmq2 < -1) {                   // ==
-    Serial.print(" | ");                    // ==
+    Serial.print(F("MQ2 Value: "));         // ==
+    Serial.print(Vmq2);                     // ==
+    Serial.print(F(" | "));                 // ==
     notif = "MQ2%20Off";                    // ==
     Serial.print(F("MQ2 Off"));             // ==
     Vmq2 = 0;                               // ==
   }                                         // ==
-  Serial.print(F("MQ2 Value: "));           // ==
-  Serial.print(Vmq2);                       // ==
   Serial.println();                         // ==
   //=============================================
-  // Temperature Section                    // ==
-  lcd.clear();
-  lcd.setCursor(0, 0);
+  //          Temperature Section           // ==
+  lcd.clear();                              // ==
+  lcd.setCursor(0, 0);                      // ==
   if (isnan(t)) {                           // ==
     Serial.println(F("Temperature Error!"));// ==
-    lcd.print(F("Temp "));          // ==
-    lcd.print(id);          // ==
-    lcd.print(F(" Error"));          // ==
+    lcd.print(F("Temp "));                  // ==
+    lcd.print(id);                          // ==
+    lcd.print(F(" Error"));                 // ==
     return;                                 // ==
   } else {                                  // ==
     Serial.print(F("Temperature: "));       // ==
     Serial.print(t);                        // ==
     temp = t;                               // ==
     Serial.println(F("°C"));                // ==
-    lcd.print(F("Temp "));
-    lcd.print(id);
-    lcd.print(F("  : "));
-    lcd.print(round(temp));
-    lcd.print((char)223);
-    lcd.print(F("C"));
+    lcd.print(F("Temp "));                  // ==
+    lcd.print(id);                          // ==
+    lcd.print(F("  : "));                   // ==
+    lcd.print(round(temp));                 // ==
+    lcd.print((char)223);                   // ==
+    lcd.print(F("C"));                      // ==
   }                                         // ==
   //=============================================
-  // Humidity Section                       // ==
-  lcd.setCursor(0, 1);
+  //             Humidity Section           // ==
+  lcd.setCursor(0, 1);                      // ==
   if (isnan(h)) {                           // ==
     Serial.println(F("Humidity Error!"));   // ==
     lcd.print(F("Humidity Error"));         // ==
@@ -198,9 +222,9 @@ void sensor(int id)
     Serial.print(h);                        // ==
     humi = h;                               // ==
     Serial.println(F("%"));                 // ==
-    lcd.print(F("Humidity: "));
-    lcd.print(round(humi));
-    lcd.print(" %");
+    lcd.print(F("Humidity: "));             // ==
+    lcd.print(round(h));                    // ==
+    lcd.print(" %");                        // ==
   }                                         // ==
   //=============================================
 
@@ -213,12 +237,11 @@ void sensor(int id)
 
 void sendData(int kid, int kmq2, float ktemp, float khumi, String knotif, String kstatus)
 {
-  Serial.println();
-
   // close any connection before send a new request
   // this will free the socket on the WiFi shield
   client.stop();
 
+  // split data to 3 segment because string zise limitation
   String data1 = String("?id=") + String(kid) +
                  String("&board_id=") + String(board_id);
   String data2 = String("&mq2=") + String(kmq2) +
@@ -227,82 +250,83 @@ void sendData(int kid, int kmq2, float ktemp, float khumi, String knotif, String
   String data3 = String("&notif=") + String(knotif) +
                  String("&status=") + String(kstatus);
 
-  //Jangan di ubah
-  Serial.print("Send sensor ");
+  //Don't Edit from this
+  Serial.println();
+  Serial.print(F("Send sensor "));
   Serial.print(kid);
-  Serial.println(" Data");
+  Serial.println(F(" Data"));
   if (client.connect(server, 80)) {
     client.println("GET " + PATH_NAME + data1 + data2 + data3 + " HTTP/1.1");
     client.println("Host: " + String(server));
-    client.println("Connection: close");
+    client.println(F("Connection: close"));
     client.println(); // end HTTP header
   }
   else {
     // if you couldn't make a connection
-    Serial.println("Connection failed");
+    Serial.println(F("Connection failed"));
   }
-  Serial.println();
   Serial.print(server);
   Serial.print(PATH_NAME);
-  Serial.println(data1 + data2 + data3);
+  Serial.print(data1 + data2 + data3);
+  // end of send data
 }
 
 void koneksi()
 {
   // check for the presence of the shield
   if (WiFi.status() == WL_NO_SHIELD) {
-    Serial.println("WiFi shield not present");
+    Serial.println(F("WiFi shield not present"));
     lcd.clear();
     lcd.setCursor(1, 0);
-    lcd.print("No Wifi Module");
+    lcd.print(F("No Wifi Module"));
     // don't continue
     while (true);
   }
 
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED) {
-    Serial.print("Attempting to connect to WPA SSID: ");
+    Serial.print(F("Attempting to connect to WPA SSID: "));
     Serial.println(ssid);
     lcd.clear();
     lcd.setCursor(1, 0);
-    lcd.print("Connecting....");
+    lcd.print(F("Connecting...."));
     lcd.setCursor(0, 1);
-    lcd.print("To: ");
+    lcd.print(F("To: "));
     lcd.print(ssid);
     // Connect to WPA/WPA2 network
     status = WiFi.begin(ssid, pass);
   }
 
   // you're connected now, so print out the data
-  Serial.println("You're connected to the network");
+  Serial.println(F("You're connected to the network"));
 }
 
 void printWifiStatus()
 {
   // print the SSID of the network you're attached to
-  Serial.print("SSID: ");
+  Serial.print(F("SSID: "));
   Serial.println(WiFi.SSID());
 
   // print your WiFi shield's IP address
   IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
+  Serial.print(F("IP Address: "));
   Serial.println(ip);
 
   // print the received signal strength
   long rssi = WiFi.RSSI();
-  Serial.print("Signal strength (RSSI):");
+  Serial.print(F("Signal strength (RSSI):"));
   Serial.print(rssi);
-  Serial.println(" dBm");
+  Serial.println(F(" dBm"));
 }
 
 void warning(int j)
 {
-  for (int i = 1; i < (j * 4); i++)
+  for (int i = 1; i < (j * 10); i++)
   {
     digitalWrite(pinBuzzer, HIGH);
-    delay(250);                       // wait for a second
+    delay(100);                       // wait for a second
     digitalWrite(pinBuzzer, LOW);
-    delay(250);                       // wait for a second
+    delay(100);                       // wait for a second
   }
 }
 
