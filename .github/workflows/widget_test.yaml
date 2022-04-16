@@ -3,7 +3,7 @@ name: 🧪 Widget Testing
 on:
   push:
     branches: [dev]
-  pull_requests:
+  pull_request:
     branches: [main, dev]
 
 jobs:
