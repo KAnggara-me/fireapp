@@ -15,6 +15,7 @@ jobs:
       - uses: subosito/flutter-action@v2.3.0
         with:
           channel: "stable"
+      - name: Run Test
         run: |
           cd app
           flutter pub get
