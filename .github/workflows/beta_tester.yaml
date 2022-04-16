@@ -46,22 +46,25 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gitversion
-      - name: Read version & build apk
+      - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
         with:
           path: version.txt
-      - run: echo ${{ secrets.JKS }} | base64 --decode > android/key.jks
-      - run: echo ${{ secrets.KEY }} | base64 --decode > android/key.properties
-      - run: flutter pub get
-      - run: flutter build apk --release --split-per-abi
-      - run: mv build/app/outputs/apk/release/app-x86_64-release.apk build/app/outputs/apk/release/Fire_App-x86_64.apk
-      - run: mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/app/outputs/apk/release/Fire_App-v8a.apk
-      - run: mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/app/outputs/apk/release/Fire_App-v7a.apk
+      - name: build APK
+        run: |
+          cd app
+          echo ${{ secrets.JKS }} | base64 --decode > android/key.jks
+          echo ${{ secrets.KEY }} | base64 --decode > android/key.properties
+          flutter pub get
+          flutter build apk --release --split-per-abi
+          mv build/app/outputs/apk/release/app-x86_64-release.apk build/app/outputs/apk/release/Fire_App-x86_64.apk
+          mv build/app/outputs/apk/release/app-arm64-v8a-release.apk build/app/outputs/apk/release/Fire_App-v8a.apk
+          mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk build/app/outputs/apk/release/Fire_App-v7a.apk
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk"
+          artifacts: "app/build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.version.outputs.content }}
           commit: ${{ github.sha }}
