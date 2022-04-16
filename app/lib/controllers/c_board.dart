@@ -16,7 +16,6 @@ abstract class BoardController extends State<BoardPage> {
   var loading = false;
   late Timer timer;
   int? mq2Max, tempMax, humiMax;
-  late String tempOp, humiOp, mq2Op;
 
   //Panggil Data / Call Data
   @override
@@ -68,9 +67,6 @@ abstract class BoardController extends State<BoardPage> {
         mq2Max = preferences.getInt("mq2Max");
         tempMax = preferences.getInt("tempMax");
         humiMax = preferences.getInt("humiMax");
-        mq2Op = preferences.getString("mq2Op").toString();
-        tempOp = preferences.getString("tempOp").toString();
-        humiOp = preferences.getString("humiOp").toString();
       });
     }
     getData();

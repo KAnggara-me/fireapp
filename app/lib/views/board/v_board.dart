@@ -42,9 +42,6 @@ class _BoardPageState extends BoardController {
                 itemBuilder: (context, i) {
                   final nDataList = listModel[i];
                   return Board(
-                    mq2Op: mq2Op,
-                    humiOp: humiOp,
-                    tempOp: tempOp,
                     mq2Max: mq2Max,
                     id: nDataList.id,
                     tempMax: tempMax,
@@ -54,7 +51,7 @@ class _BoardPageState extends BoardController {
                     name: nDataList.name,
                     time: nDataList.updatedAt,
                     temp: nDataList.temp.toDouble(),
-                    humidity: nDataList.humidity.toDouble(),
+                    mq2: nDataList.mq2.toDouble(),
                   );
                 },
               ),

@@ -183,7 +183,7 @@ class Sensor extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Kelembapan',
+                          'Sensor MQ-2',
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
@@ -194,7 +194,7 @@ class Sensor extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          humidity.toString() + ' %',
+                          mq2.toString() + ' ppm',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 35,

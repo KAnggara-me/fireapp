@@ -14,7 +14,7 @@ class BoardModel {
     required this.lon,
     required this.userId,
     required this.temp,
-    required this.humidity,
+    required this.mq2,
     required this.updatedAt,
   });
 
@@ -22,7 +22,7 @@ class BoardModel {
   int id, userId;
   double lat, lon;
   DateTime updatedAt;
-  dynamic temp, humidity;
+  dynamic temp, mq2;
 
   factory BoardModel.fromJson(Map<String, dynamic> json) => BoardModel(
         id: json["id"],
@@ -31,7 +31,7 @@ class BoardModel {
         lon: json["lon"].toDouble(),
         userId: json["user_id"],
         temp: json["temp"],
-        humidity: json["humidity"],
+        mq2: json["mq2"],
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 
@@ -42,7 +42,7 @@ class BoardModel {
         "lon": lon,
         "user_id": userId,
         "temp": temp,
-        "humidity": humidity,
+        "mq2": mq2,
         "updated_at": updatedAt.toIso8601String(),
       };
 }

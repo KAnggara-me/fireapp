@@ -10,22 +10,19 @@ class Board extends StatelessWidget {
     required this.id,
     required this.lat,
     required this.lon,
+    required this.mq2,
     required this.name,
     required this.temp,
     required this.time,
-    required this.mq2Op,
     required this.mq2Max,
-    required this.humiOp,
-    required this.tempOp,
     required this.humiMax,
     required this.tempMax,
-    required this.humidity,
   }) : super(key: key);
   final int id;
   final DateTime time;
   final int? mq2Max, tempMax, humiMax;
-  final double lat, lon, humidity, temp;
-  final String name, tempOp, humiOp, mq2Op;
+  final double lat, lon, mq2, temp;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +157,7 @@ class Board extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Kelembapan',
+                          'Sensor MQ-2',
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
@@ -173,7 +170,7 @@ class Board extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          humidity.toString() + ' %',
+                          mq2.toString() + ' ppm',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 35,
