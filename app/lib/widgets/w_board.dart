@@ -15,12 +15,11 @@ class Board extends StatelessWidget {
     required this.temp,
     required this.time,
     required this.mq2Max,
-    required this.humiMax,
     required this.tempMax,
   }) : super(key: key);
   final int id;
   final DateTime time;
-  final int? mq2Max, tempMax, humiMax;
+  final int? mq2Max, tempMax;
   final double lat, lon, mq2, temp;
   final String name;
 

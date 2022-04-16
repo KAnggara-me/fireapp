@@ -45,7 +45,6 @@ class _BoardPageState extends BoardController {
                     mq2Max: mq2Max,
                     id: nDataList.id,
                     tempMax: tempMax,
-                    humiMax: humiMax,
                     lon: nDataList.lon,
                     lat: nDataList.lat,
                     name: nDataList.name,
