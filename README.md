@@ -1,6 +1,6 @@
 # Fire App
 
-Aplikasi deteksi Kebakaran dibuat menggunakan Flutter
+Aplikasi deteksi Kebakaran dibuat menggunakan Flutter oleh KAnggara75
 
 [REST API](https://fireapp.kahosting.my.id/api/log/2) => <https://fireapp.kahosting.my.id/api/log/2>
 
