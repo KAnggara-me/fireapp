@@ -1,11 +1,10 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Board;
-use App\Models\Sensor;
-use App\Models\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +16,12 @@ class DatabaseSeeder extends Seeder
       'password' => bcrypt('llllllll'),
       'status' => 1,
     ]);
-    Board::factory(1)->create();
+    Board::create([
+      'name' => 'Admin',
+      'lon' => 102.753897,
+      'lat' => 2.988897,
+      'user_id' => 1,
+    ]);
     $this->call([
       SettingSeeder::class,
     ]);
