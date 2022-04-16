@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.SOP_SSH_USERNAME }}
           password: ${{ secrets.SOP_SSH_PASSWORD }}
           port: ${{ secrets.SOP_SSH_PORT }}
-          script: cd public_html/kah/fireapp && php artisan migrate:fresh --seed
+          script: cd public_html/kah/fireapp && php artisan migrate:fresh --seed --force
