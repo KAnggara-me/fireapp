@@ -1,0 +1,20 @@
+name: 🚀 Run API Migrations
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  web-deploy:
+    name: 🎉 FTP Deploy
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, '#api-migrate') }}
+    steps:
+      - name: 📦 Run Migrate
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SOP_HOST }}
+          username: ${{ secrets.SOP_SSH_USERNAME }}
+          password: ${{ secrets.SOP_SSH_PASSWORD }}
+          port: ${{ secrets.SOP_SSH_PORT }}
+          script: pwd && cd public_html/kah/fireapp && php artisan migrate:fresh --seed
