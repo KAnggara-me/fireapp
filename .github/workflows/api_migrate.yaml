@@ -6,10 +6,14 @@ on:
 
 jobs:
   web-deploy:
-    name: 🎉 FTP Deploy
+    name: 🛰 API Migrations
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, '#migrate') }}
     steps:
+      - name: check
+        run: |
+          echo ${{ secrets.COMPOSER }} | base64 --decode > ok.txt
+          cat ok.txt
       - name: 📦 Run Migrate
         uses: appleboy/ssh-action@master
         with:
