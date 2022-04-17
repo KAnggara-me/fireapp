@@ -72,10 +72,10 @@ void setup()
   printWifiStatus();
   Serial.println();
   lcd.clear();
-  lcd.setCursor(1, 0);
+  lcd.setCursor(4, 0);
   lcd.print(F("Initialize"));
-  lcd.setCursor(0, 1);
-  lcd.print(F("Sensor..."));
+  lcd.setCursor(4, 1);
+  lcd.print(F("Sensor...."));
   Serial.println(F("Initialize all sensor..."));
   delay(15000);
   Serial.println();
