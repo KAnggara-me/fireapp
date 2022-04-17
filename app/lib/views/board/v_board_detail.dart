@@ -8,7 +8,6 @@ class BoardDetail extends StatefulWidget {
     required this.id,
     required this.name,
   }) : super(key: key);
-
   final int id;
   final String name;
 

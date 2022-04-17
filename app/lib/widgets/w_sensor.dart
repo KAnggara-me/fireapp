@@ -1,6 +1,7 @@
 import '../constant/text.dart';
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
+import '../views/sensor/v_update_sensor.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:maps_launcher/maps_launcher.dart';
 
@@ -58,10 +59,12 @@ class Sensor extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Delete Sensor Feature: Cooming soon...",
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UpdateSensor(
+              id: id,
+              ruangan: ruangan,
             ),
           ),
         );
