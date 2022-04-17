@@ -54,7 +54,7 @@ class _LogPageState extends LogController {
                     time: logData.updatedAt,
                     boardId: logData.boardId,
                     ruangan: logData.ruangan,
-                    humidity: logData.humidity.toDouble(),
+                    humidity: logData.mq2.toDouble(),
                   );
                 },
               ),
