@@ -19,7 +19,7 @@ void loop() {
   for (int i = 1; i <= 4; i++)
   {
     sensor(i);
-    delay(1000);
+    delay(3000);
   }
   Serial.println();
 }
@@ -27,7 +27,7 @@ void loop() {
 void sensor(int id)
 {
   int Vmq2 = 150;
-  int mq2Max = 150;
+  int mq2Max = 200;
   if (id == 1)
   {
     Vmq2 = analogRead(pinMq2a) - 350;
@@ -48,7 +48,7 @@ void sensor(int id)
     Serial.print(Vmq2);                     // ==
     Serial.print(F(" | "));                 // ==
     Serial.print(F("Asap/Gas Terdeteksi")); // ==
-    warning(5);                             // ==
+//    warning(5);                             // ==
   } else if (Vmq2 < -1) {                   // ==
     Serial.print(id);                       // ==
     Serial.print(F(". MQ2 Off"));           // ==
