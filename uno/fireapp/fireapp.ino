@@ -175,6 +175,28 @@ void sensor(int id)
   }
 
   //=============================================
+  //          Temperature Section           // ==
+  lcd.clear();                              // ==
+  lcd.setCursor(0, 0);                      // ==
+  if (isnan(t)) {                           // ==
+    Serial.println(F("Temperature Error!"));// ==
+    lcd.print(F("Temp "));                  // ==
+    lcd.print(id);                          // ==
+    lcd.print(F(" Error"));                 // ==
+    return;                                 // ==
+  } else {                                  // ==
+    Serial.print(F("Temperature: "));       // ==
+    Serial.print(t);                        // ==
+    temp = t;                               // ==
+    lcd.print(F("Temp "));                  // ==
+    lcd.print(id);                          // ==
+    lcd.print(F(" : "));                    // ==
+    lcd.print(round(temp));                 // ==
+    lcd.print((char)223);                   // ==
+    lcd.print(F("C"));                      // ==
+    Serial.println(F("°C"));                // ==
+  }                                         // ==
+  //=============================================
   //                MQ2 Section             // ==
   Serial.print(F("MQ2 Value: "));           // ==
   Serial.print(Vmq2);                       // ==
@@ -190,55 +212,24 @@ void sensor(int id)
     Serial.print(F("MQ2 Off"));             // ==
     Vmq2 = 0;                               // ==
   }                                         // ==
+  lcd.setCursor(0, 1);                      // ==
+  lcd.print(F("MQ-2 "));                    // ==
+  lcd.print(id);                            // ==
+  lcd.print(F(" : "));                      // ==
+  lcd.print(round(Vmq2));                   // ==
+  lcd.print(" ppm");                        // ==
   Serial.println();                         // ==
   //=============================================
-  //          Temperature Section           // ==
-  lcd.clear();                              // ==
-  lcd.setCursor(0, 0);                      // ==
-  if (isnan(t)) {                           // ==
-    Serial.println(F("Temperature Error!"));// ==
-    lcd.print(F("Temp "));                  // ==
-    lcd.print(id);                          // ==
-    lcd.print(F(" Error"));                 // ==
-    return;                                 // ==
-  } else {                                  // ==
-    Serial.print(F("Temperature: "));       // ==
-    Serial.print(t);                        // ==
-    temp = t;                               // ==
-    Serial.println(F("°C"));                // ==
-    lcd.print(F("Temp "));                  // ==
-    lcd.print(id);                          // ==
-    lcd.print(F("  : "));                   // ==
-    lcd.print(round(temp));                 // ==
-    lcd.print((char)223);                   // ==
-    lcd.print(F("C"));                      // ==
-  }                                         // ==
-  //=============================================
-  //             Humidity Section           // ==
-  lcd.setCursor(0, 1);                      // ==
-  if (isnan(h)) {                           // ==
-    Serial.println(F("Humidity Error!"));   // ==
-    lcd.print(F("Humidity Error"));         // ==
-    return;                                 // ==
-  } else {                                  // ==
-    Serial.print(F("Humidity: "));          // ==
-    Serial.print(h);                        // ==
-    humi = h;                               // ==
-    Serial.println(F("%"));                 // ==
-    lcd.print(F("Humidity: "));             // ==
-    lcd.print(round(h));                    // ==
-    lcd.print(" %");                        // ==
-  }                                         // ==
-  //=============================================
 
-  sendData(id, Vmq2, temp, humi, notif, statuss); // Call Send data
+
+  sendData(id, Vmq2, temp, notif); // Call Send data
   if ((Vmq2 > mq2Max) || (temp >= tempMax))
   {
     warning(5);
   }
 }
 
-void sendData(int kid, int kmq2, float ktemp, float khumi, String knotif, String kstatus)
+void sendData(int kid, int kmq2, float ktemp, String knotif)
 {
   // close any connection before send a new request
   // this will free the socket on the WiFi shield
@@ -248,21 +239,24 @@ void sendData(int kid, int kmq2, float ktemp, float khumi, String knotif, String
   String data1 = String("?id=") + String(kid) +
                  String("&board_id=") + String(board_id);
   String data2 = String("&mq2=") + String(kmq2) +
-                 String("&temp=") + String(ktemp)  +
-                 String("&humidity=") + String(khumi);
-  String data3 = String("&notif=") + String(knotif) +
-                 String("&status=") + String(kstatus);
+                 String("&temp=") + String(ktemp);
+  String data3 = String("&notif=") + String(knotif);
 
   //Don't Edit from this
   Serial.println();
   Serial.print(F("Send sensor "));
   Serial.print(kid);
-  Serial.println(F(" Data"));
+  Serial.println(F("Data"));
   if (client.connect(server, 80)) {
     client.println("GET " + PATH_NAME + data1 + data2 + data3 + " HTTP/1.1");
+    delay(100); 
     client.println("Host: " + String(server));
-    client.println(F("Connection: close"));
+    delay(100); 
+    client.println("Connection: close");
+    delay(100); 
     client.println(); // end HTTP header
+    delay(500);
+    client.stop();
   }
   else {
     // if you couldn't make a connection
