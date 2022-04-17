@@ -264,7 +264,7 @@ void sendData(int kid, int kmq2, float ktemp, String knotif)
   }
   Serial.print(server);
   Serial.print(PATH_NAME);
-  Serial.print(data1 + data2 + data3);
+  Serial.println(data1 + data2 + data3);
   // end of send data
 }
 
