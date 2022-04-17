@@ -8,7 +8,7 @@ Route::get('/sensor', 'SensorController@index');
 Route::get('/sensor/{id}', 'SensorController@show');
 Route::post('/sensor', 'SensorController@store');
 Route::put('/sensor', 'SensorController@update');
-Route::get('/push', 'SensorController@update'); //interaksi dengan Hardware  TODO: fix this
+Route::get('/push', 'SensorController@updatehw'); //interaksi dengan Hardware  TODO: fix this
 Route::delete('/sensor/{sensor}', 'SensorController@destroy');
 
 // API for Board

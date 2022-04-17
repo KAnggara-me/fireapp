@@ -46,6 +46,17 @@ class SensorController extends Controller
 
   public function update(Request $request)
   {
+    $cek = Sensor::where('id', $request->id)->first();
+    if (isset($cek)) {
+      $cek->update($request->all());
+      return response()->json(["messege" => "Success"], 200);
+    } else {
+      return response()->json(["messege" => "Sensor not found"], 404);
+    }
+  }
+
+  public function updatehw(Request $request)
+  {
     $bcek = Board::where('id', $request->board_id)->first();
     $setting = Setting::get()->last();
     $suhu = $setting->temperature;
