@@ -135,7 +135,7 @@ void loop()
   for (int i = 1; i <= sens; i++)
   {
     sensor(i);
-    delay(2500);
+    delay(3000);
   }
   Serial.println();
 }
@@ -144,26 +144,29 @@ void sensor(int id)
 {
   // Delay between measurements.
   // Wait a few seconds between measurements.
-  delay(2500);
+  delay(3000);
   String notif = "Aman";
-  String statuss = "Aktif";
   float t, h;
 
   if (id == 1)
   {
-    Vmq2 = analogRead(pinMq2a) - 200;
+    //    Kalibrasi sensor mq-2 no. 1
+    Vmq2 = analogRead(pinMq2a) - 250;
     h = dht1.readHumidity();
     t = dht1.readTemperature();
   } else if (id == 2) {
-    Vmq2 = analogRead(pinMq2b) - 300;
+    //    Kalibrasi sensor mq-2 no. 2
+    Vmq2 = analogRead(pinMq2b) - 200;
     h = dht2.readHumidity();
     t = dht2.readTemperature();
   } else if (id == 3) {
+    //    Kalibrasi sensor mq-2 no. 3
     Vmq2 = analogRead(pinMq2c) - 200;
     h = dht3.readHumidity();
     t = dht3.readTemperature();
   } else if (id == 4) {
-    Vmq2 = analogRead(pinMq2d) - 240;
+    //    Kalibrasi sensor mq-2 no. 4
+    Vmq2 = analogRead(pinMq2d) - 300;
     h = dht4.readHumidity();
     t = dht4.readTemperature();
   } else {
