@@ -28,6 +28,10 @@ class API {
     return http.get(Uri.parse(BaseUrl.sensor + "/" + $id));
   }
 
+  static Future delSensorById($id) {
+    return http.delete(Uri.parse(BaseUrl.sensor + "/" + $id));
+  }
+
   static Future getAllSensor() {
     return http.get(Uri.parse(BaseUrl.sensor));
   }

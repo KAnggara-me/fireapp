@@ -1,3 +1,5 @@
+import 'package:http/http.dart';
+
 import '../../constant/size.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +107,7 @@ class _UpdateSensorState extends UpdateSensorController {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               KeyboardUtil.hideKeyboard(context);
-                              cek();
+                              del();
                             }
                           },
                         ),

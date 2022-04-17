@@ -195,6 +195,33 @@ abstract class UpdateSensorController extends State<UpdateSensor> {
     }
   }
 
+  Future<void> del() async {
+    int id = widget.id;
+    late Future<dynamic> url = API.delSensorById(id.toString());
+    final responseData = await url;
+    if (responseData.statusCode == 200) {
+      setState(
+        () {
+          loading = false;
+          msg = "Success";
+        },
+      );
+      Future.delayed(
+          const Duration(
+            seconds: 1,
+          ), () {
+        Navigator.of(context).pop();
+      });
+    } else {
+      setState(
+        () {
+          loading = false;
+          msg = "Oops, Something Wrong";
+        },
+      );
+    }
+  }
+
   Future<void> submit() async {
     int id = widget.id;
     Map body = {
