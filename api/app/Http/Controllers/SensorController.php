@@ -66,7 +66,7 @@ class SensorController extends Controller
       $cruang = isset($cek->ruangan) ? $cek->ruangan : "No Name";
       $ruangan = isset($request->ruangan) ? $request->ruangan : $cruang;
       if (($request->temp > $suhu) && ($request->mq2 > $mq2)) {
-        $notif = "Potensi Kebakaran Tinggi";
+        $notif = "Kebakaran Terdeteksi";
       } else if ($request->temp > $suhu) {
         $notif = "Temperatur Tinggi";
       } else if ($request->mq2 > $mq2) {
