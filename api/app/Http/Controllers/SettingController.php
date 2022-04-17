@@ -16,7 +16,7 @@ class SettingController extends Controller
   public function update(Request $request)
   {
     $setting = Setting::get()->last();
-    if (isset($setting)){
+    if (isset($setting)) {
       $setting->update($request->all());
       $data = [
         'mq2' => $setting->mq2,
@@ -35,6 +35,16 @@ class SettingController extends Controller
         'message' => 'Setting add successfully.'
       ];
     }
+    return response()->json($data, 200, [], JSON_NUMERIC_CHECK);
+  }
+
+  public function hwsetting()
+  {
+    $settings = Setting::get()->last();
+    $data = [
+      'mq2' => $settings->mq2,
+      'temp' => $settings->temperature,
+    ];
     return response()->json($data, 200, [], JSON_NUMERIC_CHECK);
   }
 }
