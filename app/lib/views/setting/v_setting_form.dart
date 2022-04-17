@@ -2,7 +2,7 @@ import '../../constant/size.dart';
 import '../../helpers/keyboard.dart';
 import '../../widgets/w_button.dart';
 import 'package:flutter/material.dart';
-import 'package:fire_app/controllers/c_setting.dart';
+import '../../controllers/c_setting.dart';
 
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);

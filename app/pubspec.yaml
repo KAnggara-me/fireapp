@@ -1,4 +1,4 @@
-name: fire_app
+name: fireapp
 description: Aplikasi deteksi kebakaran
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.6.2

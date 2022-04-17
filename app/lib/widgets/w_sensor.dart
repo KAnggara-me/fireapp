@@ -1,5 +1,4 @@
-import 'package:fire_app/constant/text.dart';
-
+import '../constant/text.dart';
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
