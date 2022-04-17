@@ -195,7 +195,16 @@ abstract class UpdateSensorController extends State<UpdateSensor> {
     }
   }
 
-  Future<void> del() async {
+  del() {
+    setState(
+      () {
+        loading = true;
+      },
+    );
+    delSensor();
+  }
+
+  Future<void> delSensor() async {
     int id = widget.id;
     late Future<dynamic> url = API.delSensorById(id.toString());
     final responseData = await url;
@@ -264,6 +273,7 @@ abstract class UpdateSensorController extends State<UpdateSensor> {
 
   //Config for Temperature section
   TextFormField ruanganField() {
+    String ruang = widget.ruangan;
     return TextFormField(
       controller: ruangan,
       onChanged: (value) {
@@ -281,14 +291,14 @@ abstract class UpdateSensorController extends State<UpdateSensor> {
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        hintText: "Ruangan",
+        hintText: ruang,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(20)!,
           ),
           child: Icon(
-            Icons.thermostat_outlined,
+            Icons.home,
             size: SizeConfig.screenHeight * 0.04,
           ),
         ),
