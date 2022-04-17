@@ -65,7 +65,9 @@ class SensorController extends Controller
       $cek = Sensor::where('board_id', $request->board_id)->skip(($request->id) - 1)->first();
       $cruang = isset($cek->ruangan) ? $cek->ruangan : "No Name";
       $ruangan = isset($request->ruangan) ? $request->ruangan : $cruang;
-      if ($request->temp > $suhu) {
+      if (($request->temp > $suhu) && ($request->mq2 > $mq2)) {
+        $notif = "Potensi Kebakaran Tinggi";
+      } else if ($request->temp > $suhu) {
         $notif = "Temperatur Tinggi";
       } else if ($request->mq2 > $mq2) {
         $notif = "Asap/Gas Terdeteksi";
