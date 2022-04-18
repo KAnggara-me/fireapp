@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Models\Sensor;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreDeviceRequest;
-use App\Http\Requests\UpdateDeviceRequest;
 use Illuminate\Support\Facades\DB;
 
 class BoardController extends Controller
