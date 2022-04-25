@@ -1,6 +1,5 @@
 // Form Error
-final RegExp emailValidatorRegExp =
-    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 const String kUserNullError = "Please Enter your Name";
 const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
@@ -15,5 +14,5 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kNotifOK = "Aman";
 const String kAppName = "Fire App";
 const String kNotiffire = "Ada Kebakaran!";
-const String kNotifTmp = "Temperatur Tinggi";
-const String kNotifsmoke = "Asap/Gas Terdeteksi";
+const String kNotifTmp = "Cek Kondisi Rumah";
+const String kNotifsmoke = "Asap Terdeteksi";
