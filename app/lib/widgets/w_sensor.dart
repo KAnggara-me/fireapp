@@ -1,3 +1,4 @@
+import '../constant/size.dart';
 import '../constant/text.dart';
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,32 +31,41 @@ class Sensor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color card, title, tnotif, tupdate;
+    Color card, title;
+    Color cNotif, cTmp, cCo2, cUpdate;
     String notif;
     if (temp >= tempMax! && mq2 > mq2Max!) {
       card = kCardRed; //Red
       notif = kNotiffire;
       title = Colors.amber;
-      tnotif = Colors.amber;
-      tupdate = Colors.white;
+      cNotif = Colors.amber;
+      cCo2 = Colors.amber;
+      cTmp = Colors.amber;
+      cUpdate = Colors.amber;
     } else if (temp >= tempMax!) {
       card = kCardOrange; //Orange
       title = Colors.black;
-      tnotif = Colors.red;
-      tupdate = Colors.black;
+      cNotif = Colors.red;
+      cUpdate = Colors.black;
+      cCo2 = Colors.black;
+      cTmp = Colors.red;
       notif = kNotifTmp;
     } else if (mq2 > mq2Max!) {
       card = kCardGrey; //Grey
       notif = kNotifsmoke;
       title = Colors.white;
-      tnotif = Colors.amber;
-      tupdate = Colors.black;
+      cNotif = Colors.amber;
+      cCo2 = Colors.amber;
+      cTmp = Colors.black;
+      cUpdate = Colors.black;
     } else {
       notif = kNotifOK;
       card = kCardGreen; //Green
       title = Colors.black;
-      tnotif = Colors.blue;
-      tupdate = Colors.black;
+      cNotif = Colors.black;
+      cCo2 = Colors.black;
+      cTmp = Colors.black;
+      cUpdate = Colors.black;
     }
     return InkWell(
       onTap: () {
@@ -79,19 +89,14 @@ class Sensor extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    child: FittedBox(
-                      child: Text(
-                        ruangan ?? "Unknown",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: title,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
+                  Text(
+                    ruangan ?? "Unknown",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: (ruangan.length > 12) ? (ruangan.length > 19 ? 10 : 15) : 22,
+                      color: title,
                     ),
+                    textAlign: TextAlign.left,
                   ),
                   (lon == 0.0 && lat == 0.0)
                       ? const SizedBox()
@@ -137,7 +142,7 @@ class Sensor extends StatelessWidget {
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 18,
-                              color: tupdate,
+                              color: cUpdate,
                             ),
                           ),
                           const SizedBox(
@@ -145,36 +150,22 @@ class Sensor extends StatelessWidget {
                           ),
                           Text(
                             temp.toString() + '°C',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 35,
+                              fontSize: (temp > 100) ? 25 : 35,
                               color: kWhite,
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Sensor Asap :   ',
-                                style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontSize: 12,
-                                  color: tupdate,
-                                ),
-                              ),
-                              Text(
-                                notif,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: tnotif,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            (temp >= tempMax! ? 'Suhu Tinggi' : 'Suhu Normal'),
+                            style: TextStyle(
+                              color: cTmp,
+                              fontWeight: FontWeight.bold,
+                              fontSize: getProportionateScreenWidth(15),
+                            ),
                           ),
                         ],
                       ),
@@ -189,7 +180,7 @@ class Sensor extends StatelessWidget {
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
-                            color: tupdate,
+                            color: cUpdate,
                           ),
                         ),
                         const SizedBox(
@@ -197,43 +188,47 @@ class Sensor extends StatelessWidget {
                         ),
                         Text(
                           mq2.toString() + ' ppm',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: (mq2 > 500) ? 25 : 35,
                             color: kWhite,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              'Update:   ',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 12,
-                                color: tupdate,
-                              ),
-                            ),
-                            Text(
-                              timeago.format(
-                                time,
-                                locale: 'id',
-                                allowFromNow: true,
-                              ),
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 10,
-                                color: tupdate,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          (mq2 >= mq2Max! ? 'Asap Terdeteksi' : 'Aman'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: getProportionateScreenWidth(15),
+                            color: cCo2,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
+              ),
+              Text(
+                notif,
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(25),
+                  fontWeight: FontWeight.bold,
+                  color: cNotif,
+                ),
+              ),
+              Text(
+                timeago.format(
+                  time,
+                  locale: 'id',
+                  allowFromNow: true,
+                ),
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: getProportionateScreenWidth(12),
+                  color: (temp >= tempMax! ? Colors.white : Colors.black),
+                ),
               ),
             ],
           ),

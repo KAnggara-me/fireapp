@@ -1,5 +1,6 @@
 import '../constant/colors.dart';
 import 'package:flutter/material.dart';
+import '../constant/size.dart';
 import '../views/board/v_board_detail.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:maps_launcher/maps_launcher.dart';
@@ -25,7 +26,11 @@ class Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color card = temp > tempMax! ? kCardRed : kCardGreen;
+    Color card =
+        (temp > tempMax!) ? (mq2 >= mq2Max! ? kCardRed : kCardOrange) : (mq2Max! <= mq2 ? kCardGrey : kCardGreen);
+    String tStatus = temp > tempMax!
+        ? (mq2 >= mq2Max! ? "Kebakaran" : "Suhu Tinggi")
+        : (mq2Max! <= mq2 ? "Asap Terdeteksi" : "Aman");
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -48,19 +53,14 @@ class Board extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    child: FittedBox(
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color:
-                              (temp >= tempMax! ? Colors.amber : Colors.black),
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: (name.length > 12) ? (name.length > 19 ? 10 : 15) : 22,
+                      fontWeight: FontWeight.bold,
+                      color: (temp >= tempMax! ? Colors.amber : Colors.black),
                     ),
+                    textAlign: TextAlign.left,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -104,9 +104,7 @@ class Board extends StatelessWidget {
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 18,
-                              color: (temp >= tempMax!
-                                  ? Colors.white
-                                  : Colors.black),
+                              color: (temp >= tempMax! ? Colors.white : Colors.black),
                             ),
                           ),
                           const SizedBox(
@@ -114,9 +112,9 @@ class Board extends StatelessWidget {
                           ),
                           Text(
                             temp.toString() + '°C',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 35,
+                              fontSize: (temp > 100) ? 25 : 35,
                               color: kWhite,
                             ),
                           ),
@@ -126,23 +124,19 @@ class Board extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Sensor Asap :   ',
+                                'Status :   ',
                                 style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: 12,
-                                  color: (temp >= tempMax!
-                                      ? Colors.white
-                                      : Colors.black),
+                                  color: (temp >= tempMax! ? Colors.white : Colors.black),
                                 ),
                               ),
                               Text(
-                                temp >= tempMax! ? 'Tidak Aktif' : 'Aktif',
+                                tStatus,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
-                                  color: (temp >= tempMax!
-                                      ? Colors.amber
-                                      : Colors.green),
+                                  color: (temp >= tempMax! ? Colors.amber : Colors.green),
                                 ),
                               ),
                             ],
@@ -160,19 +154,17 @@ class Board extends StatelessWidget {
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 18,
-                            color: (temp >= tempMax!
-                                ? Colors.white
-                                : Colors.black),
+                            color: (temp >= tempMax! ? Colors.white : Colors.black),
                           ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          mq2.toString() + ' ppm',
-                          style: const TextStyle(
+                          (mq2.toInt()).toString() + ' ppm',
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: (mq2 > 500) ? 25 : 35,
                             color: kWhite,
                           ),
                         ),
@@ -188,9 +180,7 @@ class Board extends StatelessWidget {
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontSize: 12,
-                            color: (temp >= tempMax!
-                                ? Colors.white
-                                : Colors.black),
+                            color: (temp >= tempMax! ? Colors.white : Colors.black),
                           ),
                         ),
                       ],
