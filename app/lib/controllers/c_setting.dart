@@ -77,7 +77,7 @@ abstract class SettingController extends State<Setting> {
   Future<void> submit() async {
     Map body = {
       "mq2": mq2.text,
-      "temp": temp.text,
+      "temperature": temp.text,
     };
 
     final response = await http.post(
