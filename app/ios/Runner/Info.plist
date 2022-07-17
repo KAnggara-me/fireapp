@@ -52,5 +52,7 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
-import 'v_auth_form.dart';
+import './v_auth_form.dart';
 import '../../constant/size.dart';
+import '../../constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class RegisterBody extends StatelessWidget {
@@ -18,10 +19,9 @@ class RegisterBody extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                Image.asset(
-                  "assets/img/logo.png",
+                Container(
+                  color: kBGcolor,
                   height: SizeConfig.screenHeight * 0.15,
-                  fit: BoxFit.contain,
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight * 0.02,

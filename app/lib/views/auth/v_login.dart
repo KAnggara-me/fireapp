@@ -1,5 +1,6 @@
 import './v_auth_form.dart';
 import '../../constant/size.dart';
+import '../../constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatelessWidget {
@@ -18,10 +19,9 @@ class LoginBody extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                Image.asset(
-                  "assets/img/logo.png",
-                  height: SizeConfig.screenHeight * 0.25,
-                  fit: BoxFit.contain,
+                Container(
+                  color: kBGcolor,
+                  height: SizeConfig.screenHeight * 0.15,
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight * 0.02,
