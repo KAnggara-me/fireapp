@@ -1,8 +1,8 @@
 // Board id => get from register in fire apps at profile screen
-#define BOARD_ID 1
+#define BOARD_ID 2
 
 // Max mq2 setPoint
-#define MQ2MAX 200
+#define MQ2MAX 250
 // Max Temperatur setPoint
 #define TEMP 40
 

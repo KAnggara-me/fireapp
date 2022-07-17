@@ -246,7 +246,7 @@ void sendData(int kid, int kmq2, float ktemp, String knotif)
   Serial.println();
   Serial.print(F("Send sensor "));
   Serial.print(kid);
-  Serial.println(F("Data"));
+  Serial.println(F(" Data"));
   if (client.connect(server, 80)) {
     client.println("GET " + PATH_NAME + data1 + data2 + data3 + " HTTP/1.1");
     delay(100); 
